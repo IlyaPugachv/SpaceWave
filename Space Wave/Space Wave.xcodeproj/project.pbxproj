@@ -22,6 +22,13 @@
 		BC8A9D2C2AFE1BE10093227E /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D2B2AFE1BE10093227E /* PlayerViewController.swift */; };
 		BC8A9D2E2AFE1C0A0093227E /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D2D2AFE1C0A0093227E /* PlaylistViewController.swift */; };
 		BC8A9D302AFE1C360093227E /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D2F2AFE1C360093227E /* SearchResultsViewController.swift */; };
+		BC8A9D322AFE1EA60093227E /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D312AFE1EA60093227E /* AuthManager.swift */; };
+		BC8A9D342AFE1ED30093227E /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D332AFE1ED30093227E /* APICaller.swift */; };
+		BC8A9D362AFE1EED0093227E /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D352AFE1EED0093227E /* HapticManager.swift */; };
+		BC8A9D382AFE1F200093227E /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D372AFE1F200093227E /* Playlist.swift */; };
+		BC8A9D3A2AFE1F3F0093227E /* AudioTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D392AFE1F3F0093227E /* AudioTrack.swift */; };
+		BC8A9D3C2AFE1F580093227E /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D3B2AFE1F580093227E /* Artist.swift */; };
+		BC8A9D3E2AFE1F6F0093227E /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D3D2AFE1F6F0093227E /* UserProfile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +49,13 @@
 		BC8A9D2B2AFE1BE10093227E /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		BC8A9D2D2AFE1C0A0093227E /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
 		BC8A9D2F2AFE1C360093227E /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
+		BC8A9D312AFE1EA60093227E /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		BC8A9D332AFE1ED30093227E /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		BC8A9D352AFE1EED0093227E /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		BC8A9D372AFE1F200093227E /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
+		BC8A9D392AFE1F3F0093227E /* AudioTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrack.swift; sourceTree = "<group>"; };
+		BC8A9D3B2AFE1F580093227E /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
+		BC8A9D3D2AFE1F6F0093227E /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +102,10 @@
 		BC4A2AE22AFE06AF0027B9AC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BC8A9D372AFE1F200093227E /* Playlist.swift */,
+				BC8A9D392AFE1F3F0093227E /* AudioTrack.swift */,
+				BC8A9D3B2AFE1F580093227E /* Artist.swift */,
+				BC8A9D3D2AFE1F6F0093227E /* UserProfile.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -119,6 +137,9 @@
 		BC4A2AE62AFE06E30027B9AC /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				BC8A9D312AFE1EA60093227E /* AuthManager.swift */,
+				BC8A9D332AFE1ED30093227E /* APICaller.swift */,
+				BC8A9D352AFE1EED0093227E /* HapticManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -136,8 +157,8 @@
 		BC8A9D202AFE19930093227E /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				BC4A2AD22AFCD3C70027B9AC /* HomeViewController.swift */,
 				BC8A9D1A2AFE14C20093227E /* TabBarViewController.swift */,
+				BC4A2AD22AFCD3C70027B9AC /* HomeViewController.swift */,
 				BC8A9D1C2AFE19450093227E /* SearchViewController.swift */,
 				BC8A9D1E2AFE198B0093227E /* LibraryViewController.swift */,
 			);
@@ -229,17 +250,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC8A9D1D2AFE19450093227E /* SearchViewController.swift in Sources */,
+				BC8A9D382AFE1F200093227E /* Playlist.swift in Sources */,
+				BC8A9D322AFE1EA60093227E /* AuthManager.swift in Sources */,
+				BC8A9D362AFE1EED0093227E /* HapticManager.swift in Sources */,
 				BC8A9D302AFE1C360093227E /* SearchResultsViewController.swift in Sources */,
 				BC8A9D252AFE1B740093227E /* WelcomeViewController.swift in Sources */,
 				BC8A9D2A2AFE1BB70093227E /* ProfileViewController.swift in Sources */,
 				BC8A9D1B2AFE14C20093227E /* TabBarViewController.swift in Sources */,
+				BC8A9D3A2AFE1F3F0093227E /* AudioTrack.swift in Sources */,
 				BC4A2AD32AFCD3C70027B9AC /* HomeViewController.swift in Sources */,
 				BC8A9D232AFE1B4A0093227E /* AuthViewController.swift in Sources */,
 				BC4A2ACF2AFCD3C70027B9AC /* AppDelegate.swift in Sources */,
+				BC8A9D3E2AFE1F6F0093227E /* UserProfile.swift in Sources */,
 				BC8A9D1F2AFE198B0093227E /* LibraryViewController.swift in Sources */,
+				BC8A9D3C2AFE1F580093227E /* Artist.swift in Sources */,
 				BC8A9D2E2AFE1C0A0093227E /* PlaylistViewController.swift in Sources */,
 				BC4A2AD12AFCD3C70027B9AC /* SceneDelegate.swift in Sources */,
 				BC8A9D2C2AFE1BE10093227E /* PlayerViewController.swift in Sources */,
+				BC8A9D342AFE1ED30093227E /* APICaller.swift in Sources */,
 				BC8A9D272AFE1B920093227E /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
