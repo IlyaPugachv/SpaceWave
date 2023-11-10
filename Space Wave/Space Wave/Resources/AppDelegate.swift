@@ -11,7 +11,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    
         let window = UIWindow(frame: UIScreen.main.bounds)
         
-        // Если пользователь зарегистрировался то он перехожит на TabBarViewController иначе на экран приветствия
+        // Если пользователь зарегистрировался то он переходит на TabBarViewController иначе на WelcomeViewController
         if AuthManager.shared.isSignedIn {
             window.rootViewController = TabBarViewController()
         } else {

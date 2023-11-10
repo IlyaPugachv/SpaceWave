@@ -29,6 +29,7 @@
 		BC8A9D3A2AFE1F3F0093227E /* AudioTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D392AFE1F3F0093227E /* AudioTrack.swift */; };
 		BC8A9D3C2AFE1F580093227E /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D3B2AFE1F580093227E /* Artist.swift */; };
 		BC8A9D3E2AFE1F6F0093227E /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D3D2AFE1F6F0093227E /* UserProfile.swift */; };
+		BC8A9D402AFE84FB0093227E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D3F2AFE84FB0093227E /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		BC8A9D392AFE1F3F0093227E /* AudioTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrack.swift; sourceTree = "<group>"; };
 		BC8A9D3B2AFE1F580093227E /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		BC8A9D3D2AFE1F6F0093227E /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		BC8A9D3F2AFE84FB0093227E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 				BC4A2AD72AFCD3C90027B9AC /* Assets.xcassets */,
 				BC4A2ACE2AFCD3C70027B9AC /* AppDelegate.swift */,
 				BC4A2AD02AFCD3C70027B9AC /* SceneDelegate.swift */,
+				BC8A9D3F2AFE84FB0093227E /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				BC8A9D232AFE1B4A0093227E /* AuthViewController.swift in Sources */,
 				BC4A2ACF2AFCD3C70027B9AC /* AppDelegate.swift in Sources */,
 				BC8A9D3E2AFE1F6F0093227E /* UserProfile.swift in Sources */,
+				BC8A9D402AFE84FB0093227E /* Extensions.swift in Sources */,
 				BC8A9D1F2AFE198B0093227E /* CollectionViewController.swift in Sources */,
 				BC8A9D3C2AFE1F580093227E /* Artist.swift in Sources */,
 				BC8A9D2E2AFE1C0A0093227E /* PlaylistViewController.swift in Sources */,

@@ -30,7 +30,7 @@ class TabBarViewController: UITabBarController {
         nav2.navigationBar.prefersLargeTitles = true
         nav3.navigationBar.prefersLargeTitles = true
 
-        // Устанавливаем nav1, nav2, nav3 как контроллеры вкладок для отображения пользователю
+        // TODO: Устанавливаем nav1, nav2, nav3 как контроллеры вкладок для отображения пользователю
         setViewControllers([nav1, nav2, nav3], animated: false)
     }
 }
