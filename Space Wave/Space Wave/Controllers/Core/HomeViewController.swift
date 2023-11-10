@@ -1,6 +1,7 @@
 import UIKit
 
-class ViewController: UIViewController {
+// TODO: - Этот View Controller мы сделали стартовым!
+class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -8,4 +9,3 @@ class ViewController: UIViewController {
         view.backgroundColor = .blue
     }
 }
-
