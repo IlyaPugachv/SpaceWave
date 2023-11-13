@@ -7,8 +7,7 @@ class WelcomeViewController: UIViewController {
         button.backgroundColor = .black
         button.setTitle("Sign in", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        return button
-    }()
+        return button }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +28,7 @@ class WelcomeViewController: UIViewController {
     @objc func didTapSignIn() {
         let vc = AuthViewController()
         vc.comletionHandler = { [weak self] success in
-            DispatchQueue.main.sync {
+            DispatchQueue.main.async {
                 self?.handleSignIn(success: success)
             }
         }
@@ -38,6 +37,15 @@ class WelcomeViewController: UIViewController {
     }
     
     private func handleSignIn(success: Bool) {
-        // TODO: - Здесь пользователь будет входить в систему или мы будем ему сообщать об ошибке!
+        guard success else {
+            let alert = UIAlertController(title: "Oops", message: "Something went wrong when signing in.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Dissmiss", style: .cancel, handler: nil))
+            present(alert, animated: true)
+            return
+        }
+        
+        let mainAppTabBarVC = TabBarViewController()
+        mainAppTabBarVC.modalPresentationStyle = .fullScreen
+        present(mainAppTabBarVC, animated: true)
     }
 }

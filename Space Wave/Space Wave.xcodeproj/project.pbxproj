@@ -12,6 +12,7 @@
 		BC4A2AD32AFCD3C70027B9AC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2AD22AFCD3C70027B9AC /* HomeViewController.swift */; };
 		BC4A2AD82AFCD3C90027B9AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC4A2AD72AFCD3C90027B9AC /* Assets.xcassets */; };
 		BC4A2ADB2AFCD3C90027B9AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC4A2AD92AFCD3C90027B9AC /* LaunchScreen.storyboard */; };
+		BC84E9CC2AFF9F5100126263 /* AuthResponce.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC84E9CB2AFF9F5100126263 /* AuthResponce.swift */; };
 		BC8A9D1B2AFE14C20093227E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D1A2AFE14C20093227E /* TabBarViewController.swift */; };
 		BC8A9D1D2AFE19450093227E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D1C2AFE19450093227E /* SearchViewController.swift */; };
 		BC8A9D1F2AFE198B0093227E /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D1E2AFE198B0093227E /* CollectionViewController.swift */; };
@@ -40,6 +41,7 @@
 		BC4A2AD72AFCD3C90027B9AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BC4A2ADA2AFCD3C90027B9AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC4A2ADC2AFCD3C90027B9AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC84E9CB2AFF9F5100126263 /* AuthResponce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponce.swift; sourceTree = "<group>"; };
 		BC8A9D1A2AFE14C20093227E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		BC8A9D1C2AFE19450093227E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		BC8A9D1E2AFE198B0093227E /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 		BC4A2AE22AFE06AF0027B9AC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BC84E9CB2AFF9F5100126263 /* AuthResponce.swift */,
 				BC8A9D372AFE1F200093227E /* Playlist.swift */,
 				BC8A9D392AFE1F3F0093227E /* AudioTrack.swift */,
 				BC8A9D3B2AFE1F580093227E /* Artist.swift */,
@@ -266,6 +269,7 @@
 				BC4A2ACF2AFCD3C70027B9AC /* AppDelegate.swift in Sources */,
 				BC8A9D3E2AFE1F6F0093227E /* UserProfile.swift in Sources */,
 				BC8A9D402AFE84FB0093227E /* Extensions.swift in Sources */,
+				BC84E9CC2AFF9F5100126263 /* AuthResponce.swift in Sources */,
 				BC8A9D1F2AFE198B0093227E /* CollectionViewController.swift in Sources */,
 				BC8A9D3C2AFE1F580093227E /* Artist.swift in Sources */,
 				BC8A9D2E2AFE1C0A0093227E /* PlaylistViewController.swift in Sources */,
