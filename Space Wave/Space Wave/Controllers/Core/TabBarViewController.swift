@@ -4,7 +4,7 @@ class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+ 
         let vc1 = HomeViewController()
         let vc2 = SearchViewController()
         let vc3 = CollectionViewController()
