@@ -12,6 +12,9 @@
 		BC4A2AD32AFCD3C70027B9AC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2AD22AFCD3C70027B9AC /* HomeViewController.swift */; };
 		BC4A2AD82AFCD3C90027B9AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC4A2AD72AFCD3C90027B9AC /* Assets.xcassets */; };
 		BC4A2ADB2AFCD3C90027B9AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC4A2AD92AFCD3C90027B9AC /* LaunchScreen.storyboard */; };
+		BC7126512B03A0E4000581DB /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BC7126502B03A0E4000581DB /* Lottie */; };
+		BC7126552B03AD34000581DB /* LaunchScreenWithAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7126542B03AD34000581DB /* LaunchScreenWithAnimationViewController.swift */; };
+		BC7126592B04BB3B000581DB /* shootingStars.json in Resources */ = {isa = PBXBuildFile; fileRef = BC7126582B04BB3B000581DB /* shootingStars.json */; };
 		BC84E9CC2AFF9F5100126263 /* AuthResponce.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC84E9CB2AFF9F5100126263 /* AuthResponce.swift */; };
 		BC8A9D1B2AFE14C20093227E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D1A2AFE14C20093227E /* TabBarViewController.swift */; };
 		BC8A9D1D2AFE19450093227E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D1C2AFE19450093227E /* SearchViewController.swift */; };
@@ -41,6 +44,8 @@
 		BC4A2AD72AFCD3C90027B9AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BC4A2ADA2AFCD3C90027B9AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC4A2ADC2AFCD3C90027B9AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC7126542B03AD34000581DB /* LaunchScreenWithAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenWithAnimationViewController.swift; sourceTree = "<group>"; };
+		BC7126582B04BB3B000581DB /* shootingStars.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = shootingStars.json; sourceTree = "<group>"; };
 		BC84E9CB2AFF9F5100126263 /* AuthResponce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponce.swift; sourceTree = "<group>"; };
 		BC8A9D1A2AFE14C20093227E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		BC8A9D1C2AFE19450093227E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC7126512B03A0E4000581DB /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +158,7 @@
 		BC4A2AE72AFE06E90027B9AC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BC7126582B04BB3B000581DB /* shootingStars.json */,
 				BC4A2AD72AFCD3C90027B9AC /* Assets.xcassets */,
 				BC4A2ACE2AFCD3C70027B9AC /* AppDelegate.swift */,
 				BC4A2AD02AFCD3C70027B9AC /* SceneDelegate.swift */,
@@ -163,6 +170,7 @@
 		BC8A9D202AFE19930093227E /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				BC7126542B03AD34000581DB /* LaunchScreenWithAnimationViewController.swift */,
 				BC8A9D1A2AFE14C20093227E /* TabBarViewController.swift */,
 				BC4A2AD22AFCD3C70027B9AC /* HomeViewController.swift */,
 				BC8A9D1C2AFE19450093227E /* SearchViewController.swift */,
@@ -201,6 +209,9 @@
 			dependencies = (
 			);
 			name = "Space Wave";
+			packageProductDependencies = (
+				BC7126502B03A0E4000581DB /* Lottie */,
+			);
 			productName = "Space Wave";
 			productReference = BC4A2ACB2AFCD3C70027B9AC /* Space Wave.app */;
 			productType = "com.apple.product-type.application";
@@ -229,6 +240,9 @@
 				Base,
 			);
 			mainGroup = BC4A2AC22AFCD3C70027B9AC;
+			packageReferences = (
+				BC71264F2B03A0E4000581DB /* XCRemoteSwiftPackageReference "lottie-spm" */,
+			);
 			productRefGroup = BC4A2ACC2AFCD3C70027B9AC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -245,6 +259,7 @@
 			files = (
 				BC4A2ADB2AFCD3C90027B9AC /* LaunchScreen.storyboard in Resources */,
 				BC4A2AD82AFCD3C90027B9AC /* Assets.xcassets in Resources */,
+				BC7126592B04BB3B000581DB /* shootingStars.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +284,7 @@
 				BC4A2ACF2AFCD3C70027B9AC /* AppDelegate.swift in Sources */,
 				BC8A9D3E2AFE1F6F0093227E /* UserProfile.swift in Sources */,
 				BC8A9D402AFE84FB0093227E /* Extensions.swift in Sources */,
+				BC7126552B03AD34000581DB /* LaunchScreenWithAnimationViewController.swift in Sources */,
 				BC84E9CC2AFF9F5100126263 /* AuthResponce.swift in Sources */,
 				BC8A9D1F2AFE198B0093227E /* CollectionViewController.swift in Sources */,
 				BC8A9D3C2AFE1F580093227E /* Artist.swift in Sources */,
@@ -489,6 +505,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BC71264F2B03A0E4000581DB /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BC7126502B03A0E4000581DB /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC71264F2B03A0E4000581DB /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BC4A2AC32AFCD3C70027B9AC /* Project object */;
 }
