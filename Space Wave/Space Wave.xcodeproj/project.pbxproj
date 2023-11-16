@@ -85,19 +85,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B5939BA721D1AF2F27D660FA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		BC4A2AC22AFCD3C70027B9AC = {
 			isa = PBXGroup;
 			children = (
 				BC4A2ACD2AFCD3C70027B9AC /* Space Wave */,
 				BC4A2ACC2AFCD3C70027B9AC /* Products */,
-				B5939BA721D1AF2F27D660FA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
