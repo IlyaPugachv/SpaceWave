@@ -1,7 +1,7 @@
 import UIKit
 import Lottie
 
-class LaunchScreenWithAnimationViewController: UIViewController {
+final class LaunchScreenWithAnimationViewController: UIViewController {
     
     var closure: (() -> ())?
     private let lottieView = LottieAnimationView()
@@ -20,7 +20,6 @@ class LaunchScreenWithAnimationViewController: UIViewController {
         bootScreenDisplay()
         displayingAppBootScreenAnimation()
         view.backgroundColor = .white
-        
     }
     
     private func bootScreenDisplay() {

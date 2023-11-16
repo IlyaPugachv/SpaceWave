@@ -15,6 +15,8 @@
 		BC7126512B03A0E4000581DB /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = BC7126502B03A0E4000581DB /* Lottie */; };
 		BC7126552B03AD34000581DB /* LaunchScreenWithAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7126542B03AD34000581DB /* LaunchScreenWithAnimationViewController.swift */; };
 		BC7126592B04BB3B000581DB /* shootingStars.json in Resources */ = {isa = PBXBuildFile; fileRef = BC7126582B04BB3B000581DB /* shootingStars.json */; };
+		BC7126612B060A76000581DB /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7126602B060A76000581DB /* SettingsModel.swift */; };
+		BC7126632B060C30000581DB /* UserDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7126622B060C30000581DB /* UserDataViewController.swift */; };
 		BC84E9CC2AFF9F5100126263 /* AuthResponce.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC84E9CB2AFF9F5100126263 /* AuthResponce.swift */; };
 		BC8A9D1B2AFE14C20093227E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D1A2AFE14C20093227E /* TabBarViewController.swift */; };
 		BC8A9D1D2AFE19450093227E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D1C2AFE19450093227E /* SearchViewController.swift */; };
@@ -34,9 +36,12 @@
 		BC8A9D3C2AFE1F580093227E /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D3B2AFE1F580093227E /* Artist.swift */; };
 		BC8A9D3E2AFE1F6F0093227E /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D3D2AFE1F6F0093227E /* UserProfile.swift */; };
 		BC8A9D402AFE84FB0093227E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A9D3F2AFE84FB0093227E /* Extensions.swift */; };
+		BEC1642BD41671098FA832F5 /* Pods_Space_Wave.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D244CC4E57A319085A3572D3 /* Pods_Space_Wave.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3DA860E7FD1ED0D2004D9038 /* Pods-Space Wave.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Space Wave.release.xcconfig"; path = "Target Support Files/Pods-Space Wave/Pods-Space Wave.release.xcconfig"; sourceTree = "<group>"; };
+		57F85C023B9C96D6117218E5 /* Pods-Space Wave.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Space Wave.debug.xcconfig"; path = "Target Support Files/Pods-Space Wave/Pods-Space Wave.debug.xcconfig"; sourceTree = "<group>"; };
 		BC4A2ACB2AFCD3C70027B9AC /* Space Wave.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Space Wave.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC4A2ACE2AFCD3C70027B9AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC4A2AD02AFCD3C70027B9AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +51,8 @@
 		BC4A2ADC2AFCD3C90027B9AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC7126542B03AD34000581DB /* LaunchScreenWithAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenWithAnimationViewController.swift; sourceTree = "<group>"; };
 		BC7126582B04BB3B000581DB /* shootingStars.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = shootingStars.json; sourceTree = "<group>"; };
+		BC7126602B060A76000581DB /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
+		BC7126622B060C30000581DB /* UserDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataViewController.swift; sourceTree = "<group>"; };
 		BC84E9CB2AFF9F5100126263 /* AuthResponce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponce.swift; sourceTree = "<group>"; };
 		BC8A9D1A2AFE14C20093227E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		BC8A9D1C2AFE19450093227E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +72,7 @@
 		BC8A9D3B2AFE1F580093227E /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		BC8A9D3D2AFE1F6F0093227E /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		BC8A9D3F2AFE84FB0093227E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D244CC4E57A319085A3572D3 /* Pods_Space_Wave.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Space_Wave.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,17 +81,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC7126512B03A0E4000581DB /* Lottie in Frameworks */,
+				BEC1642BD41671098FA832F5 /* Pods_Space_Wave.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E85A6BD7C1A93B325B99FC1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D244CC4E57A319085A3572D3 /* Pods_Space_Wave.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B5939BA721D1AF2F27D660FA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				57F85C023B9C96D6117218E5 /* Pods-Space Wave.debug.xcconfig */,
+				3DA860E7FD1ED0D2004D9038 /* Pods-Space Wave.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		BC4A2AC22AFCD3C70027B9AC = {
 			isa = PBXGroup;
 			children = (
 				BC4A2ACD2AFCD3C70027B9AC /* Space Wave */,
 				BC4A2ACC2AFCD3C70027B9AC /* Products */,
+				B5939BA721D1AF2F27D660FA /* Pods */,
+				2E85A6BD7C1A93B325B99FC1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,6 +145,7 @@
 				BC8A9D392AFE1F3F0093227E /* AudioTrack.swift */,
 				BC8A9D3B2AFE1F580093227E /* Artist.swift */,
 				BC8A9D3D2AFE1F6F0093227E /* UserProfile.swift */,
+				BC7126602B060A76000581DB /* SettingsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -184,8 +213,9 @@
 			children = (
 				BC8A9D222AFE1B4A0093227E /* AuthViewController.swift */,
 				BC8A9D242AFE1B740093227E /* WelcomeViewController.swift */,
-				BC8A9D262AFE1B920093227E /* SettingsViewController.swift */,
 				BC8A9D292AFE1BB70093227E /* ProfileViewController.swift */,
+				BC7126622B060C30000581DB /* UserDataViewController.swift */,
+				BC8A9D262AFE1B920093227E /* SettingsViewController.swift */,
 				BC8A9D2B2AFE1BE10093227E /* PlayerViewController.swift */,
 				BC8A9D2D2AFE1C0A0093227E /* PlaylistViewController.swift */,
 				BC8A9D2F2AFE1C360093227E /* SearchResultsViewController.swift */,
@@ -200,9 +230,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC4A2ADF2AFCD3C90027B9AC /* Build configuration list for PBXNativeTarget "Space Wave" */;
 			buildPhases = (
+				B44F11008F2B3BDCA9F03035 /* [CP] Check Pods Manifest.lock */,
 				BC4A2AC72AFCD3C70027B9AC /* Sources */,
 				BC4A2AC82AFCD3C70027B9AC /* Frameworks */,
 				BC4A2AC92AFCD3C70027B9AC /* Resources */,
+				7AD6C67896F8753635BAC6C4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -265,12 +297,56 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7AD6C67896F8753635BAC6C4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Space Wave/Pods-Space Wave-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Space Wave/Pods-Space Wave-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Space Wave/Pods-Space Wave-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B44F11008F2B3BDCA9F03035 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Space Wave-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BC4A2AC72AFCD3C70027B9AC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC7126612B060A76000581DB /* SettingsModel.swift in Sources */,
 				BC8A9D1D2AFE19450093227E /* SearchViewController.swift in Sources */,
+				BC7126632B060C30000581DB /* UserDataViewController.swift in Sources */,
 				BC8A9D382AFE1F200093227E /* Playlist.swift in Sources */,
 				BC8A9D322AFE1EA60093227E /* AuthManager.swift in Sources */,
 				BC8A9D362AFE1EED0093227E /* HapticManager.swift in Sources */,
@@ -431,12 +507,14 @@
 		};
 		BC4A2AE02AFCD3C90027B9AC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57F85C023B9C96D6117218E5 /* Pods-Space Wave.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y5C952D945;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Space Wave/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -458,12 +536,14 @@
 		};
 		BC4A2AE12AFCD3C90027B9AC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3DA860E7FD1ED0D2004D9038 /* Pods-Space Wave.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y5C952D945;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Space Wave/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

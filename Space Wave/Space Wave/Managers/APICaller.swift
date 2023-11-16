@@ -5,9 +5,37 @@ final class APICaller {
     
     private init() {}
     
+    struct Constants {
+        static let baseAPIURL = "https://api.spotify.com/v1"
+    }
+    
+    enum APIError: Error {
+        case faileedToGetData
+    }
+    
     public func getCurrentUserProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) {
-       
+        createRequest(
+            with: URL(string: Constants.baseAPIURL + "/me"),
+            type: .GET
+        ) { baseRequest in
+            let task = URLSession.shared.dataTask(with: baseRequest) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.faileedToGetData))
+                    return
+                }
+
+                do {
+                    let result = try JSONDecoder().decode(UserProfile.self, from: data)
+                    completion(.success(result))
+                }
+                catch {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
         }
+    }
     }
     
     struct Constants {
