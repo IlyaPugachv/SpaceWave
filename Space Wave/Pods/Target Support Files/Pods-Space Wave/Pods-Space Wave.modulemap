@@ -1,6 +1,0 @@
-framework module Pods_Space_Wave {
-  umbrella header "Pods-Space Wave-umbrella.h"
-
-  export *
-  module * { export * }
-}
