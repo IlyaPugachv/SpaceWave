@@ -22,6 +22,11 @@ class TabBarViewController: UITabBarController {
         let nav2 = UINavigationController(rootViewController: vc2)
         let nav3 = UINavigationController(rootViewController: vc3)
         
+        // Выставляем цвет навигации в цвет системы
+        nav1.navigationBar.tintColor = .label
+        nav2.navigationBar.tintColor = .label
+        nav3.navigationBar.tintColor = .label
+        
         nav1.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "music.note.house.fill"), tag: 1)
         nav2.tabBarItem = UITabBarItem(title: "Podcasts and books", image: UIImage(systemName: "mic.and.signal.meter"), tag: 1)
         nav3.tabBarItem = UITabBarItem(title: "Collection", image: UIImage(systemName: "heart"), tag: 1)
