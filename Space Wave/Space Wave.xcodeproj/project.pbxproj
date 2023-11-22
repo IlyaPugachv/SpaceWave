@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC18816D2B0E2CAD002E1030 /* NewReleaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC18816C2B0E2CAD002E1030 /* NewReleaseCollectionViewCell.swift */; };
+		BC18816F2B0E2D05002E1030 /* FeaturedPlaylistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC18816E2B0E2D05002E1030 /* FeaturedPlaylistCollectionViewCell.swift */; };
+		BC1881712B0E2D31002E1030 /* RecommendedTracksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1881702B0E2D31002E1030 /* RecommendedTracksCollectionViewCell.swift */; };
 		BC376B102B0B5EBB0054B27B /* FeaturedPlaylistsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC376B0F2B0B5EBB0054B27B /* FeaturedPlaylistsResponse.swift */; };
 		BC376B122B0B63B00054B27B /* RecommendedGenresResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC376B112B0B63B00054B27B /* RecommendedGenresResponse.swift */; };
 		BC376B142B0B686E0054B27B /* RecommendationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC376B132B0B686E0054B27B /* RecommendationsResponse.swift */; };
@@ -45,6 +48,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BC18816C2B0E2CAD002E1030 /* NewReleaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		BC18816E2B0E2D05002E1030 /* FeaturedPlaylistCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedPlaylistCollectionViewCell.swift; sourceTree = "<group>"; };
+		BC1881702B0E2D31002E1030 /* RecommendedTracksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedTracksCollectionViewCell.swift; sourceTree = "<group>"; };
 		BC376B0F2B0B5EBB0054B27B /* FeaturedPlaylistsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedPlaylistsResponse.swift; sourceTree = "<group>"; };
 		BC376B112B0B63B00054B27B /* RecommendedGenresResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedGenresResponse.swift; sourceTree = "<group>"; };
 		BC376B132B0B686E0054B27B /* RecommendationsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsResponse.swift; sourceTree = "<group>"; };
@@ -95,6 +101,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC3A261C2B0E2BC000123E08 /* Reviews */ = {
+			isa = PBXGroup;
+			children = (
+				BC18816C2B0E2CAD002E1030 /* NewReleaseCollectionViewCell.swift */,
+				BC18816E2B0E2D05002E1030 /* FeaturedPlaylistCollectionViewCell.swift */,
+				BC1881702B0E2D31002E1030 /* RecommendedTracksCollectionViewCell.swift */,
+			);
+			path = Reviews;
+			sourceTree = "<group>";
+		};
 		BC4A2AC22AFCD3C70027B9AC = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +162,7 @@
 		BC4A2AE32AFE06B80027B9AC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BC3A261C2B0E2BC000123E08 /* Reviews */,
 				BC4A2AD92AFCD3C90027B9AC /* LaunchScreen.storyboard */,
 			);
 			path = Views;
@@ -296,6 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC7126612B060A76000581DB /* SettingsModel.swift in Sources */,
+				BC18816D2B0E2CAD002E1030 /* NewReleaseCollectionViewCell.swift in Sources */,
 				BC8A9D1D2AFE19450093227E /* SearchViewController.swift in Sources */,
 				BC8A9D382AFE1F200093227E /* Playlist.swift in Sources */,
 				BC8A9D322AFE1EA60093227E /* AuthManager.swift in Sources */,
@@ -314,7 +332,9 @@
 				BC8A9D3E2AFE1F6F0093227E /* UserProfile.swift in Sources */,
 				BC8A9D402AFE84FB0093227E /* Extensions.swift in Sources */,
 				BC7126552B03AD34000581DB /* LaunchScreenWithAnimationViewController.swift in Sources */,
+				BC18816F2B0E2D05002E1030 /* FeaturedPlaylistCollectionViewCell.swift in Sources */,
 				BC84E9CC2AFF9F5100126263 /* AuthResponce.swift in Sources */,
+				BC1881712B0E2D31002E1030 /* RecommendedTracksCollectionViewCell.swift in Sources */,
 				BC8A9D1F2AFE198B0093227E /* CollectionViewController.swift in Sources */,
 				BC8A9D3C2AFE1F580093227E /* Artist.swift in Sources */,
 				BC8A9D2E2AFE1C0A0093227E /* PlaylistViewController.swift in Sources */,
@@ -475,6 +495,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -503,6 +524,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
