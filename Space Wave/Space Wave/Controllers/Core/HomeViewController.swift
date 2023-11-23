@@ -20,8 +20,7 @@ class HomeViewController: UIViewController {
         let spinner = UIActivityIndicatorView()
         spinner.tintColor = .label
         spinner.hidesWhenStopped = true
-        return spinner
-    }()
+        return spinner }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
