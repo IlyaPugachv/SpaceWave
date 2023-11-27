@@ -37,6 +37,7 @@ final class APICaller {
         }
     }
     
+    // Запрос для вызова новых релизов с сервера (лимит в 50)
     public func getNewReleases(completion: @escaping ((Result<NewReleasesResponse, Error>)) -> Void) {
         createRequest(with: URL(string: Constants.baseAPIURL + "/browse/new-releases?limit=50"), type: .GET) { request in
             let task = URLSession.shared.dataTask(with: request) { data, _, error in
@@ -57,7 +58,8 @@ final class APICaller {
         }
     }
     
-    public func getFeaturedFlaylists(completion: @escaping ((Result<FeaturedPlaylistsResponse, Error>) -> Void)) {
+    // Запрос для вызова рекомендуемых плейлистов с сервера (лимит в 20)
+    public func getFeaturedPlaylists(completion: @escaping ((Result<FeaturedPlaylistsResponse, Error>) -> Void)) {
         createRequest(
             with: URL(string: Constants.baseAPIURL + "/browse/featured-playlists?limit=20"),
             type: .GET
@@ -67,7 +69,7 @@ final class APICaller {
                     completion(.failure(APIError.faileedToGetData))
                     return
                 }
-
+                
                 do {
                     let result = try JSONDecoder().decode(FeaturedPlaylistsResponse.self, from: data)
                     completion(.success(result))
@@ -80,19 +82,20 @@ final class APICaller {
         }
     }
     
+    // Запрос для вызова рекомендаций с сервера (лимит в 10, но на данный момент отображает почему то 1)
     public func getRecommendations(genres: Set<String>, completion: @escaping ((Result<RecommendationsResponse, Error>) -> Void)) {
         let seeds = genres.joined(separator: ",")
         createRequest(
-            with: URL(string: Constants.baseAPIURL + "/recommendations?limit=40&seed_genres=\(seeds)"),
+            with: URL(string: Constants.baseAPIURL + "/recommendations?limit=10&seed_genres=\(seeds)"),
             type: .GET
         ) { request in
-        let task = URLSession.shared.dataTask(with: request) { data, _, error in
+            let task = URLSession.shared.dataTask(with: request) { data, _, error in
                 guard let data = data, error == nil else {
                     completion(.failure(APIError.faileedToGetData))
                     return
                 }
-
-                do { 
+                
+                do {
                     let result = try JSONDecoder().decode(RecommendationsResponse.self, from: data)
                     completion(.success(result))
                 }
@@ -114,7 +117,7 @@ final class APICaller {
                     completion(.failure(APIError.faileedToGetData))
                     return
                 }
-
+                
                 do {
                     let result = try JSONDecoder().decode(RecommendedGenresResponse.self, from: data)
                     completion(.success(result))
@@ -136,7 +139,7 @@ enum APIError: Error {
     case faileedToGetData
 }
 
-// MARK: - Private
+// MARK: - Private + ENUM HTTPMethod
 
 enum HTTPMethod: String {
     case GET

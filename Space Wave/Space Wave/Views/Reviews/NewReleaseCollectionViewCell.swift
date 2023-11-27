@@ -6,7 +6,8 @@ import SDWebImage
 class NewReleaseCollectionViewCell: UICollectionViewCell {
     static let identifier = "NewReleaseCollectionViewCell" // индификатор ячейки
     
-    // Интерфейс альбомов
+    // MARK: - Private UI
+    
     private let albumCoverImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "photo")
@@ -43,8 +44,8 @@ class NewReleaseCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(albumCoverImageView)
         contentView.addSubview(albumNameLabel)
         contentView.addSubview(artistNameLabel)
-        contentView.clipsToBounds = true
         contentView.addSubview(numberOfTracksLabel)
+        contentView.clipsToBounds = true
     }
     
     required init?(coder: NSCoder) { fatalError() }
@@ -55,9 +56,8 @@ class NewReleaseCollectionViewCell: UICollectionViewCell {
         let albumLabelSize = albumNameLabel.sizeThatFits(
             CGSize(
                 width: contentView.width-imageSize-10,
-                height: contentView.height-10
-            )
-        )
+                height: contentView.height-10 
+            ))
         artistNameLabel.sizeToFit()
         numberOfTracksLabel.sizeToFit()
 
