@@ -1,6 +1,6 @@
 import UIKit
 
-// MARK: - Коллекция рек плейлистов
+// MARK: - Настройка отображения плейлистов
 
 class FeaturedPlaylistCollectionViewCell: UICollectionViewCell {
     static let identifier = "FeaturedPlaylistCollectionViewCell"
@@ -8,6 +8,8 @@ class FeaturedPlaylistCollectionViewCell: UICollectionViewCell {
     // Интерфейс плейлистов
     private let playlistCoverImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 5
         imageView.image = UIImage(systemName: "photo")
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -16,7 +18,7 @@ class FeaturedPlaylistCollectionViewCell: UICollectionViewCell {
     private let playlistNameLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.font = .systemFont(ofSize: 12, weight: .semibold)
         return label
     }()
@@ -42,7 +44,7 @@ class FeaturedPlaylistCollectionViewCell: UICollectionViewCell {
         )
         let imageSize = contentView.height-45
         playlistCoverImageView.frame = CGRect(
-            x: (contentView.width-imageSize)/2,
+            x: (contentView.width-imageSize)/3,
             y: 3,
             width: imageSize,
             height: imageSize
