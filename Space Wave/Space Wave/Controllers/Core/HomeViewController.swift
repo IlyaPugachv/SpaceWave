@@ -4,10 +4,26 @@ enum BrowseSectionType {
     case recommendedTracks(viewModels: [RecommendedTrackCellViewModel])
     case newReleases(viewModels: [NewReleasesCellViewModel])
     case featuredPlaylist(viewModels: [FeaturedPlaylistCellViewModel])
+    
+    var title: String {
+        switch self {
+        case .newReleases:
+            return "New Released Albums"
+        case .featuredPlaylist:
+            return "Featured Playlists"
+        case .recommendedTracks:
+            return "Recommended"
+        }
+    }
 }
 
 // TODO: - Этот View Controller мы сделали стартовым!
 class HomeViewController: UIViewController {
+    
+    // массивы где мы будем хранить данные!
+    private var newAlbums: [Album] = []
+    private var playlist: [Playlist] = []
+    private var tracks: [AudioTrack] = []
     
     private var collectionView: UICollectionView = UICollectionView(
         frame: .zero,
@@ -22,6 +38,15 @@ class HomeViewController: UIViewController {
         spinner.hidesWhenStopped = true
         return spinner }()
     
+//    private let playListLabel: UILabel = {
+//    let playListLabel = UILabel()
+//    playListLabel.text = "Популярные плейлисты"
+//    playListLabel.numberOfLines = 0 // Изменено значение numberOfLines на 0
+//    playListLabel.font = .systemFont(ofSize: 18, weight: .semibold)
+//    playListLabel.textColor = .white
+//    return playListLabel
+//    }()
+    
     private var sections = [BrowseSectionType]()
     
     override func viewDidLoad() {
@@ -30,12 +55,18 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         configureCollectionView()
         view.addSubview(spinner)
+//        view.addSubview(playListLabel)
         fetchData()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
+//        playListLabel.translatesAutoresizingMaskIntoConstraints = false
+//        playListLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100).isActive = true // установка левой границы лейблы
+//        playListLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true // установка верхней границы лейблы
+//        playListLabel.heightAnchor.constraint(equalToConstant: 130).isActive = true // установка высоты лейблы
+//        playListLabel.widthAnchor.constraint(equalToConstant: 400).isActive = true // ширина лейбла плейлиста
     }
     
     private func configureCollectionView() {
@@ -48,7 +79,11 @@ class HomeViewController: UIViewController {
                                 forCellWithReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier)
         collectionView.register(RecommendedTracksCollectionViewCell.self,
                                 forCellWithReuseIdentifier: RecommendedTracksCollectionViewCell.identifier)
-        
+        collectionView.register(
+            TitleHeaderCollectionReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: TitleHeaderCollectionReusableView.identifier
+        )
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .systemBackground
@@ -133,7 +168,15 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func configureModels(newAlbums: [Album], playlist: [Playlist], tracks: [AudioTrack]) {
+    private func configureModels(
+        newAlbums: [Album],
+        playlist: [Playlist],
+        tracks: [AudioTrack]
+    ) {
+        self.newAlbums = newAlbums
+        self.playlist = playlist
+        self.tracks = tracks
+        
         // Настройка модели
         sections.append(.newReleases(viewModels: newAlbums.compactMap({
             return NewReleasesCellViewModel(
@@ -141,19 +184,20 @@ class HomeViewController: UIViewController {
                 artworkURL: URL(string: $0.images.first?.url ?? ""),
                 numberOfTracks: $0.total_tracks,
                 artistName: $0.artists.first?.name ?? "-"
-            )
+           )
         })))
         
         sections.append(.featuredPlaylist(viewModels: playlist.compactMap({
             return FeaturedPlaylistCellViewModel(
                 name: $0.name,
-                artworkURL: URL(string: $0.images.first?.url ?? ""))
+                artworkURL: URL(string: $0.images.first?.url ?? "")
+            )
         })))
         
         sections.append(.recommendedTracks(viewModels: tracks.compactMap({
             return RecommendedTrackCellViewModel(
                 name: $0.name,
-                artistName: $0.artists.first?.name ?? "--",
+                artistName: $0.artists.first?.name ?? "-",
                 artworkURL: URL(string: $0.album?.images.first?.url ?? "")
             )
         })))
@@ -202,7 +246,53 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let section = sections[indexPath.section]
+        switch section {
+        case .featuredPlaylist:
+            let playlist = playlist[indexPath.row]
+            let vc = PlaylistViewController(playlist: playlist)
+            vc.title = playlist.name
+            vc.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(vc, animated: true)
+        case .newReleases:
+            let album = newAlbums[indexPath.row]
+            let vc = AlbumViewController(album: album)
+            vc.title = album.name
+            vc.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(vc, animated: true)
+        case .recommendedTracks:
+            break
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: TitleHeaderCollectionReusableView.identifier,
+            for: indexPath
+        ) as? TitleHeaderCollectionReusableView, kind == UICollectionView.elementKindSectionHeader else {
+            return UICollectionReusableView()
+        }
+        let section = indexPath.section
+        let title = sections[section].title
+        header.configure(with: title)
+        return header
+    }
+
     static func createSectionLayout(section: Int) -> NSCollectionLayoutSection {
+        
+        let supplementaryViews = [
+            NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .absolute(50)
+                ),
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .top
+            )
+        ]
         
         switch section {
         case 0:
@@ -213,20 +303,20 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                     heightDimension: .fractionalHeight(1.0)))
             
             item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
-            
+           
             // Вертикальный и горизонтальный группы
             let verticalGroup = NSCollectionLayoutGroup.vertical(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .absolute(390)),
+                    heightDimension: .absolute(100)),
                 subitem: item,
-                count: 3
+                count: 1
             )
             
             let horizontalGroup = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(0.9),
-                    heightDimension: .absolute(390)
+                    heightDimension: .absolute(170)
                 ),
                 subitem: verticalGroup,
                 count: 1
@@ -235,37 +325,30 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             // Секции
             let section = NSCollectionLayoutSection(group: horizontalGroup)
             section.orthogonalScrollingBehavior = .groupPaging
+            section.boundarySupplementaryItems = supplementaryViews
             return section
             
         case 1:
+            
             // Позиции
             let item = NSCollectionLayoutItem(
                 layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .absolute(200) ,
-                    heightDimension: . absolute(400)))
+                    widthDimension: .absolute(200) , // ширина иконки плейлиста
+                    heightDimension: . absolute(200))) // высота иконки плейлиста
             
             item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
             
-            let verticalCroup = NSCollectionLayoutGroup.vertical(
-                layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .absolute(200),
-                    heightDimension: .absolute(400)
-                ),
-                subitem: item,
-                count: 2
-            )
-            
             let horizontalGroup = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .absolute(200),
-                    heightDimension: .absolute(400)
+                    widthDimension: .absolute(170), // расстояние между двумя плейлистами
+                    heightDimension: .absolute(200) // расстояние между плейлистами и треками
                 ),
-                subitem: verticalCroup,
+                subitem: item,
                 count: 1
             )
-            
             let section = NSCollectionLayoutSection(group: horizontalGroup)
             section.orthogonalScrollingBehavior = .continuous
+            section.boundarySupplementaryItems = supplementaryViews
             return section
             
         case 2:
@@ -289,6 +372,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             
             // Секции
             let section = NSCollectionLayoutSection(group: group)
+            section.boundarySupplementaryItems = supplementaryViews
             return section
             
         default:
@@ -310,6 +394,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             )
             
             let section = NSCollectionLayoutSection(group: group)
+            section.boundarySupplementaryItems = supplementaryViews  
             return section
         }
     }
