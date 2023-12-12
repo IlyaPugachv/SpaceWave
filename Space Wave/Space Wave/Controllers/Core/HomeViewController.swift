@@ -8,11 +8,11 @@ enum BrowseSectionType {
     var title: String {
         switch self {
         case .newReleases:
-            return "New Released Albums"
+            return "Новые выпущенные альбомы"
         case .featuredPlaylist:
-            return "Featured Playlists"
+            return "Рекомендованные плейлисты"
         case .recommendedTracks:
-            return "Recommended"
+            return "Рекомендации"
         }
     }
 }
@@ -55,6 +55,7 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         configureCollectionView()
         view.addSubview(spinner)
+        glassButton()
 //        view.addSubview(playListLabel)
         fetchData()
     }
@@ -168,6 +169,22 @@ class HomeViewController: UIViewController {
         }
     }
     
+    private func glassButton() {
+       view.backgroundColor = .systemBackground
+       navigationItem.rightBarButtonItem = UIBarButtonItem(
+           image: UIImage(systemName: "magnifyingglass"),
+           style: .done,
+           target: self,
+           action: #selector(didTapGlass))
+   }
+    
+    @objc func didTapGlass() {
+        let vc = SearchViewController()
+        vc.title = "Search"
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     private func configureModels(
         newAlbums: [Album],
         playlist: [Playlist],
@@ -263,7 +280,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             vc.navigationItem.largeTitleDisplayMode = .never
             navigationController?.pushViewController(vc, animated: true)
         case .recommendedTracks:
-            break
+            let track = tracks[indexPath.row]
+            PlaybackPresenter.startPlayback(from: self, track: track)
+           
         }
     }
     

@@ -14,8 +14,8 @@ final class AuthManager {
 //    static let clientSecret = "ef17f14bb36248c189a8c74961e14da4"
     
     struct Constants {
-        static let clientID = "714632e92cbe48c88e9647ff28809966"
-        static let clientSecret = "68ab8b2c27844737b88c4f41a7ac3d3a"
+        static let clientID = "91373bb82bba428cad2c6c461004cf00"
+        static let clientSecret = "ef17f14bb36248c189a8c74961e14da4"
         static let tokenAPIURL = "https://accounts.spotify.com/api/token"
         static let redirectURI = "https://www.google.com"
         static let scopes = "user-read-private%20playlist-modify-public%20playlist-read-private%20playlist-modify-private%20user-follow-read%20user-library-modify%20user-library-read%20user-read-email"

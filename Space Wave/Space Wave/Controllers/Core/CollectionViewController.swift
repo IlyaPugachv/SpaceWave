@@ -31,7 +31,7 @@ class CollectionViewController: UIViewController {
             action: #selector(didTapSettings))
     }
     
-    private func glassButton() {
+     private func glassButton() {
         view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "magnifyingglass"),
