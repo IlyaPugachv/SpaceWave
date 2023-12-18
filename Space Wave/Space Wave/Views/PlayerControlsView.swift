@@ -2,15 +2,22 @@ import Foundation
 import UIKit
 
 protocol PlayerControlsViewDelegate: AnyObject {
-    func playerControlsViewDidTapPlayPauseButton(_ playerControlsView: PlayerControlsViewViewModel)
-    func playerControlsViewDidTapForwardButton(_ playerControlsView: PlayerControlsViewViewModel)
-    func playerControlsViewDidTapBackwardsButton(_ playerControlsView: PlayerControlsViewViewModel)
-    func playerControlsView(_ playerControlsView: PlayerControlsViewViewModel, didSlideSlider value: Float)
+    func playerControlsViewDidTapPlayPauseButton(_ playerControlsView: PlayerControlsView)
+    func playerControlsViewDidTapForwardButton(_ playerControlsView: PlayerControlsView)
+    func playerControlsViewDidTapBackwardsButton(_ playerControlsView: PlayerControlsView)
+    func playerControlsView(_ playerControlsView: PlayerControlsView, didSlideSlider value: Float)
+}
+
+struct PlayerControlsViewViewModel {
+    let title: String?
+    let subtitle: String?
 }
 
 // MARK: - Дизайн нашего плеера воспроизведения треков
 
-final class PlayerControlsViewViewModel: UIView {
+final class PlayerControlsView: UIView {
+    
+    private var isPlaying = true
     
     weak var delegate: PlayerControlsViewDelegate?
     
@@ -21,7 +28,8 @@ final class PlayerControlsViewViewModel: UIView {
     }()
     
     private let nameLabel: UILabel = {
-        let label = UILabel()
+        let label = UILabel() 
+        label.text = "Bones"
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.textColor = .secondaryLabel
@@ -30,6 +38,7 @@ final class PlayerControlsViewViewModel: UIView {
     
     private let subtitleLabel: UILabel = {
         let label = UILabel()
+        label.text = "Loose screw"
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 18, weight: .semibold)
         label.textColor = .secondaryLabel
@@ -66,7 +75,9 @@ final class PlayerControlsViewViewModel: UIView {
         
         addSubview(nameLabel)
         addSubview(subtitleLabel)
+        
         addSubview(volumeSlider)
+        volumeSlider.addTarget(self, action: #selector(didSlideSlider(_:)), for: .valueChanged)
         
         addSubview(backButton)
         addSubview(nextButton)
@@ -83,6 +94,11 @@ final class PlayerControlsViewViewModel: UIView {
         fatalError()
     }
     
+    @objc func didSlideSlider(_ slider: UISlider) {
+        let value = slider.value
+        delegate?.playerControlsView(self, didSlideSlider: value)
+    }
+    
     @objc private func didTapBack() {
         delegate?.playerControlsViewDidTapBackwardsButton(self)
     }
@@ -92,7 +108,14 @@ final class PlayerControlsViewViewModel: UIView {
     }
 
     @objc private func didTapPlayPause() {
+        self.isPlaying = !isPlaying
         delegate?.playerControlsViewDidTapPlayPauseButton(self)
+        
+        // Обновление значка
+        let pause = UIImage(systemName: "pause", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))
+        let play = UIImage(systemName: "play.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))
+   
+        playPauseButton.setImage(isPlaying ? pause : play, for: .normal)
     }
     
     override func layoutSubviews() {
@@ -106,5 +129,10 @@ final class PlayerControlsViewViewModel: UIView {
         playPauseButton.frame = CGRect(x: (width - buttonSize)/2, y: volumeSlider.bottom + 30, width: buttonSize, height: buttonSize)
         backButton.frame = CGRect(x: playPauseButton.left-80-buttonSize, y: playPauseButton.top, width: buttonSize, height: buttonSize)
         nextButton.frame = CGRect(x: playPauseButton.right+80, y: playPauseButton.top, width: buttonSize, height: buttonSize)
+    }
+    
+    func configure(with viewModel: PlayerControlsViewViewModel) {
+        nameLabel.text = viewModel.title
+        subtitleLabel.text = viewModel.subtitle
     }
 }
