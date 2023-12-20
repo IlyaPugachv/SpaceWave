@@ -1,11 +1,41 @@
 import UIKit
 
 class CollectionViewController: UIViewController {
-
+    
+    private let playlistVC = LibraryPlaylistsViewController()
+    private let albumsVC = LibraryAlbumsViewController()
+    
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isPagingEnabled = true
+        return scrollView
+    }()
+    
+    private let toggleView = LibraryToggleView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+        scrollView.delegate = self
+        toggleView.delegate = self
+        view.addSubview(scrollView)
+        view.addSubview(toggleView)
+        scrollView.contentSize = CGSize(width: view.width*2, height: scrollView.height)
         profileButton()
         glassButton()
+        addChildren()
+    }
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrollView.frame = CGRect(
+            x: 0,
+            y: view.safeAreaInsets.top+55,
+            width: view.width,
+            height: view.height-view.safeAreaInsets.top-view.safeAreaInsets.bottom-55
+        )
+        toggleView.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: 200, height: 55)
     }
     
     @objc func didTapSettings() {
@@ -31,12 +61,57 @@ class CollectionViewController: UIViewController {
             action: #selector(didTapSettings))
     }
     
-     private func glassButton() {
+    private func glassButton() {
         view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "magnifyingglass"),
             style: .done,
             target: self,
             action: #selector(didTapGlass))
+    }
+    
+    // Здесь мы добавляем два дочерних контроллера
+    private func addChildren() {
+        addChild(playlistVC)
+        scrollView.addSubview(playlistVC.view) // Это позволяет отображать содержимое playlistVC внутри scrollView
+        playlistVC.view.frame = CGRect(
+            x: 0,
+            y: 0,
+            width: scrollView.width,
+            height: scrollView.height
+        )
+        playlistVC.didMove(toParent: self)
+        
+        addChild(albumsVC)
+        scrollView.addSubview(albumsVC.view)
+        albumsVC.view.frame = CGRect(
+            x: view.width,
+            y: 0,
+            width: scrollView.width,
+            height: scrollView.height
+        )
+        albumsVC.didMove(toParent: self)
+    }
+}
+
+
+extension CollectionViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.x >= (view.width-100) {
+            toggleView.update(for: .album)
+        }
+        else {
+            toggleView.update(for: .playlist)
+        }
+    }
+}
+
+extension CollectionViewController: LibraryToggleViewDelegate {
+    func libraryToggleViewDidTapPlaylists(_ toggleView: LibraryToggleView) {
+        scrollView.setContentOffset(.zero, animated: true)
+    }
+    
+    func libraryToggleViewDidTapAlbums(_ toggleView: LibraryToggleView) {
+        scrollView.setContentOffset(CGPoint(x: view.width, y: 0), animated: true)
     }
 }
