@@ -23,6 +23,8 @@ class CollectionViewController: UIViewController {
         scrollView.contentSize = CGSize(width: view.width*2, height: scrollView.height)
         profileButton()
         glassButton()
+        
+        updateBarButtons()
         addChildren()
     }
     
@@ -70,6 +72,19 @@ class CollectionViewController: UIViewController {
             action: #selector(didTapGlass))
     }
     
+    private func updateBarButtons() {
+        switch toggleView.state {
+        case .playlist:
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
+        case .album:
+            navigationItem.rightBarButtonItem = nil
+        }
+    }
+    
+    @objc private func didTapAdd() {
+        playlistVC.showCreatePlaylistAlert()
+    }
+    
     // Здесь мы добавляем два дочерних контроллера
     private func addChildren() {
         addChild(playlistVC)
@@ -99,9 +114,11 @@ extension CollectionViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x >= (view.width-100) {
             toggleView.update(for: .album)
+            updateBarButtons()
         }
         else {
             toggleView.update(for: .playlist)
+            updateBarButtons()
         }
     }
 }
@@ -109,9 +126,11 @@ extension CollectionViewController: UIScrollViewDelegate {
 extension CollectionViewController: LibraryToggleViewDelegate {
     func libraryToggleViewDidTapPlaylists(_ toggleView: LibraryToggleView) {
         scrollView.setContentOffset(.zero, animated: true)
+        updateBarButtons()
     }
     
     func libraryToggleViewDidTapAlbums(_ toggleView: LibraryToggleView) {
         scrollView.setContentOffset(CGPoint(x: view.width, y: 0), animated: true)
+        updateBarButtons()
     }
 }
