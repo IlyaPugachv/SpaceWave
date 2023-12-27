@@ -58,6 +58,7 @@ class HomeViewController: UIViewController {
         glassButton()
 //        view.addSubview(playListLabel)
         fetchData()
+        addLongTapGesture()
     }
     
     override func viewDidLayoutSubviews() {
@@ -68,6 +69,44 @@ class HomeViewController: UIViewController {
 //        playListLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true // установка верхней границы лейблы
 //        playListLabel.heightAnchor.constraint(equalToConstant: 130).isActive = true // установка высоты лейблы
 //        playListLabel.widthAnchor.constraint(equalToConstant: 400).isActive = true // ширина лейбла плейлиста
+    }
+    
+    private func addLongTapGesture() {
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress(_:)))
+        collectionView.addGestureRecognizer(gesture)
+    }
+    
+    @objc func didLongPress(_ gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else {
+            return
+        }
+        
+        let touchPoint = gesture.location(in: collectionView)
+        
+        guard let indexPath = collectionView.indexPathForItem(at: touchPoint), indexPath.section == 2 else {
+            return
+        }
+         
+        let model = tracks[indexPath.row]
+        
+        let actionSheet = UIAlertController(title: model.name, message: "12313", preferredStyle: .actionSheet)
+       
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        actionSheet.addAction(UIAlertAction(title: "Add", style: .default, handler: { [weak self] _ in
+            DispatchQueue.main.async {
+                let vc = LibraryPlaylistsViewController()
+                vc.selectionHandler = { playlist in
+                    APICaller.shared.addTrackToPlaylist(track: model, playlist: playlist) { success in
+                        // Позже напишем здесь то, что будем отображать пользователю если добавление плейлиста прошло успешно!
+                    }
+                }
+                vc.title = "Select playlist"
+                self?.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+            }
+        }))
+        
+        present(actionSheet, animated: true)
     }
     
     private func configureCollectionView() {
