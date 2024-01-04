@@ -4,6 +4,8 @@ class PlaylistViewController: UIViewController {
 
     private let playlist: Playlist
     
+    public var isOwner = false
+    
     private let collectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewCompositionalLayout(sectionProvider: {  _, _ -> NSCollectionLayoutSection? in
@@ -88,8 +90,53 @@ class PlaylistViewController: UIViewController {
             }
         }
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapShare))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .action,
+            target: self,
+            action: #selector(didTapShare)
+        )
+        
+        let gesture = UILongPressGestureRecognizer( target: self,
+                                                    action: #selector(didLongPress(_:)))
+        collectionView.addGestureRecognizer(gesture)
     }
+    
+    @objc private func didLongPress(_ gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else {
+            return
+        }
+        let touchPoint = gesture.location(in: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: touchPoint) else {
+            return
+        }
+        let tracksToDelete = tracks[indexPath.row]
+        
+        let actionSheet = UIAlertController(
+            title: tracksToDelete.name,
+            message: "Would you like to remove this from the playlists?",
+            preferredStyle: .actionSheet
+        )
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { [weak self] _ in
+            guard let strongSelf = self else {
+                return
+            }
+            APICaller.shared.removeTrackFromPlaylist(track: tracksToDelete, playlist: strongSelf.playlist) { success in
+                // Операцию по удалению треков выполняем в главном потоке!
+                DispatchQueue.main.async {
+                    if success {
+                        strongSelf.tracks.remove(at: indexPath.row)
+                        strongSelf.viewModels.remove(at: indexPath.row)
+                        strongSelf.collectionView.reloadData()
+                    }
+                }
+            }
+        }
+                                           )
+        )
+        present(actionSheet, animated: true, completion: nil)
+    }
+
     
     @objc private func didTapShare() {
         guard let url = URL(string: playlist.external_urls["spotify"] ?? "") else {
