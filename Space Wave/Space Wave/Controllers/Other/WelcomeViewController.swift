@@ -4,16 +4,23 @@ class WelcomeViewController: UIViewController {
     
     private var signInButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .black
-        button.setTitle("Sign in", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .white
+        button.setTitle("Sign in Space Wave", for: .normal)
+        button.setTitleColor(.black, for: .normal)
         return button }()
     
     private let imageView: UIImageView = {
         let imageBackground = UIImageView()
         imageBackground.contentMode = .scaleAspectFill
-        imageBackground.image = UIImage(named: "image_background")
+        imageBackground.image = UIImage(named: "imageViewBackground")
         return imageBackground
+    }()
+    
+    private let overlayView: UIView = {
+       let view = UIView()
+        view.backgroundColor = .black
+        view.alpha = 0.8
+        return view
     }()
     
     override func viewDidLoad() {
@@ -21,13 +28,14 @@ class WelcomeViewController: UIViewController {
         title = "Space Wave"
         view.backgroundColor = .darkGray
         view.addSubview(imageView)
+        view.addSubview(overlayView)
         view.addSubview(signInButton)
         signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
-        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        overlayView.frame = view.bounds
         imageView.frame = view.bounds
         signInButton.frame = CGRect(x: 20,
                                     y: view.height-50-view.safeAreaInsets.bottom,
