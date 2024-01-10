@@ -3,13 +3,13 @@ import UIKit
 enum BrowseSectionType {
     case recommendedTracks(viewModels: [RecommendedTrackCellViewModel])
     case newReleases(viewModels: [NewReleasesCellViewModel])
-    case featuredPlaylist(viewModels: [FeaturedPlaylistCellViewModel])
+    case featuredPlaylists(viewModels: [FeaturedPlaylistCellViewModel])
     
     var title: String {
         switch self {
         case .newReleases:
             return "New album releases"
-        case .featuredPlaylist:
+        case .featuredPlaylists:
             return "Playlist recommended"
         case .recommendedTracks:
             return "Recommended tracks"
@@ -183,7 +183,7 @@ class HomeViewController: UIViewController {
                   let tracks = recommendations?.tracks else {
                 fatalError("Models are nil")
             }
-            self.configureModels(newAlbums: newAlbums, playlist: playlists, tracks: tracks)
+            self.configureModels(newAlbums: newAlbums, playlists: playlists, tracks: tracks)
         }
     }
     
@@ -205,11 +205,11 @@ class HomeViewController: UIViewController {
     
     private func configureModels(
         newAlbums: [Album],
-        playlist: [Playlist],
+        playlists: [Playlist],
         tracks: [AudioTrack]
     ) {
         self.newAlbums = newAlbums
-        self.playlist = playlist
+        self.playlist = playlists
         self.tracks = tracks
         
         // Настройка модели
@@ -222,10 +222,11 @@ class HomeViewController: UIViewController {
            )
         })))
         
-        sections.append(.featuredPlaylist(viewModels: playlist.compactMap({
+        sections.append(.featuredPlaylists(viewModels: playlists.compactMap({
             return FeaturedPlaylistCellViewModel(
                 name: $0.name,
-                artworkURL: URL(string: $0.images.first?.url ?? "")
+                artworkURL: URL(string: $0.images.first?.url ?? ""),
+                creatorName: $0.owner.display_name
             )
         })))
         
@@ -248,7 +249,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return viewModels.count
         case .newReleases(let viewModels):
             return viewModels.count
-        case .featuredPlaylist(let viewModels):
+        case .featuredPlaylists(let viewModels):
             return viewModels.count
         }
     }
@@ -266,7 +267,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.configure(with: viewModel)
             return cell
             
-        case .featuredPlaylist(let viewModels):
+        case .featuredPlaylists(let viewModels):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier, for: indexPath) as? FeaturedPlaylistCollectionViewCell else {
                 return UICollectionViewCell()
             }
@@ -286,7 +287,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         HapticsManager.shared.vibrateForSelection()
         let section = sections[indexPath.section]
         switch section {
-        case .featuredPlaylist:
+        case .featuredPlaylists:
             let playlist = playlist[indexPath.row]
             let vc = PlaylistViewController(playlist: playlist)
             vc.title = playlist.name
