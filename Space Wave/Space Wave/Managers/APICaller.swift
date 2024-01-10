@@ -188,7 +188,7 @@ final class APICaller {
                     "spotify:track:\(track.id)"
                 ]
             ]
-            print(json)
+
             request.httpBody = try? JSONSerialization.data(withJSONObject: json, options: .fragmentsAllowed)
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             print("Adding...")

@@ -55,9 +55,24 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
     private func createTableHeader(with string: String?, name: String?, email: String?) {
         guard let urlString = string, let url = URL(string: urlString) else { return }
         
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.width, height: view.width/3))
+        let headerView = UIView(
+            frame: CGRect(
+                x: 0,
+                y: 0,
+                width: view.width,
+                height: view.width/3
+            )
+        )
+        
         let imageSize: CGFloat = headerView.height/2
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: imageSize, height: imageSize))
+        let imageView = UIImageView(
+            frame: CGRect(
+                x: 0,
+                y: 0,
+                width: imageSize,
+                height: imageSize
+            )
+        )
         headerView.addSubview(imageView)
         imageView.center = headerView.center
         imageView.contentMode = .scaleAspectFill
@@ -65,13 +80,27 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = imageSize/2
         
-        let emailLabel = UILabel(frame: CGRect(x: 0, y: imageView.bottom + 10, width: headerView.width, height: 20))
+        let emailLabel = UILabel(
+            frame: CGRect(
+                x: 0,
+                y: imageView.bottom + 10,
+                width: headerView.width,
+                height: 20
+            )
+        )
         emailLabel.textAlignment = .center
         emailLabel.text = email
         emailLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         headerView.addSubview(emailLabel)
         
-        let nameLabel = UILabel(frame: CGRect(x: 0, y: emailLabel.bottom + 5, width: headerView.width, height: 20))
+        let nameLabel = UILabel(
+            frame: CGRect(
+                x: 0,
+                y: emailLabel.bottom + 5,
+                width: headerView.width,
+                height: 20
+            )
+        )
         nameLabel.textAlignment = .center
         nameLabel.text = name
         headerView.addSubview(nameLabel)
@@ -89,7 +118,7 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     @objc func didTapExit() {
-        let vc = SearchViewController() // TODO: - Создай view куда выходить!
+        let vc = SearchViewController()
         vc.title = "Search"
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
@@ -113,9 +142,9 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     private func signOutTapped() {
-       let alert = UIAlertController(title: "Sign Out",
-                                     message: "Are you sure?",
-                                     preferredStyle: .alert)
+        let alert = UIAlertController(title: "Sign Out",
+                                      message: "Are you sure?",
+                                      preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: { _ in
             AuthManager.shared.signOut { [weak self] signedOut in
@@ -144,9 +173,13 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
     
     // MARK: - Table View
     
-    func numberOfSections(in tableView: UITableView) -> Int { sections.count }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        sections.count
+    }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { sections[section].options.count }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        sections[section].options.count
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = sections[indexPath.section].options[indexPath.row]

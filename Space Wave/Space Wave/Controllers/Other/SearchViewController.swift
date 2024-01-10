@@ -19,11 +19,8 @@ class SearchViewController: UIViewController, UISearchResultsUpdating {
         navigationItem.searchController = searchController
     }
     
-    
     func updateSearchResults(for searchController: UISearchController) {
         guard let query = searchController.searchBar.text,
-              !query.trimmingCharacters(in: .whitespaces).isEmpty else {
-            return
-        }
+              !query.trimmingCharacters(in: .whitespaces).isEmpty else { return }
     }
 }

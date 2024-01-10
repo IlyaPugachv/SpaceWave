@@ -4,15 +4,7 @@ final class AuthManager {
     static let shared = AuthManager()
     
     private var refreshingToken = false
-    
-//    основной аккаунт
-//    static let clientID = "714632e92cbe48c88e9647ff28809966"
-//    static let clientSecret = "68ab8b2c27844737b88c4f41a7ac3d3a"
-    
-//    другой аккаунт
-//    static let clientID = "91373bb82bba428cad2c6c461004cf00"
-//    static let clientSecret = "ef17f14bb36248c189a8c74961e14da4"
-    
+
     struct Constants {
         static let clientID = "714632e92cbe48c88e9647ff28809966"
         static let clientSecret = "68ab8b2c27844737b88c4f41a7ac3d3a"
@@ -32,11 +24,17 @@ final class AuthManager {
     
     var isSignedIn: Bool { return accessToken != nil }
     
-    private var accessToken: String? { UserDefaults.standard.string(forKey: "access_token") }
+    private var accessToken: String? {
+        UserDefaults.standard.string(forKey: "access_token")
+    }
     
-    private var refreshToken: String? { UserDefaults.standard.string(forKey: "refresh_token") }
+    private var refreshToken: String? {
+        UserDefaults.standard.string(forKey: "refresh_token")
+    }
     
-    private var tokenExpirationDate: Date? { UserDefaults.standard.object(forKey: "expirationDate") as? Date }
+    private var tokenExpirationDate: Date? {
+        UserDefaults.standard.object(forKey: "expirationDate") as? Date
+    }
     
     private var shouldRefreshToken: Bool {
         guard let expirationDate = tokenExpirationDate else { return false }
@@ -197,7 +195,6 @@ final class AuthManager {
                                        forKey: "refresh_token")
         UserDefaults.standard.setValue(nil,
                                        forKey: "expirationDate")
-
         completion(true)
     }
 }

@@ -35,7 +35,11 @@ class LibraryPlaylistsViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        noPlaylistView.frame = CGRect(x: 0, y: 0, width: 160, height: 160)
+        noPlaylistView.frame = CGRect(
+            x: 0,
+            y: 0,
+            width: 160, 
+            height: 160)
         noPlaylistView.center = view.center
         tableView.frame = view.bounds
     }

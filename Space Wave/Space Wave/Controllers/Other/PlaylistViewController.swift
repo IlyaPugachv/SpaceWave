@@ -102,13 +102,11 @@ class PlaylistViewController: UIViewController {
     }
     
     @objc private func didLongPress(_ gesture: UILongPressGestureRecognizer) {
-        guard gesture.state == .began else {
-            return
-        }
+        guard gesture.state == .began else { return }
+        
         let touchPoint = gesture.location(in: collectionView)
-        guard let indexPath = collectionView.indexPathForItem(at: touchPoint) else {
-            return
-        }
+        guard let indexPath = collectionView.indexPathForItem(at: touchPoint) else { return }
+        
         let tracksToDelete = tracks[indexPath.row]
         
         let actionSheet = UIAlertController(
@@ -118,9 +116,8 @@ class PlaylistViewController: UIViewController {
         )
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         actionSheet.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { [weak self] _ in
-            guard let strongSelf = self else {
-                return
-            }
+            guard let strongSelf = self else { return }
+            
             APICaller.shared.removeTrackFromPlaylist(track: tracksToDelete, playlist: strongSelf.playlist) { success in
                 // Операцию по удалению треков выполняем в главном потоке!
                 DispatchQueue.main.async {
@@ -139,9 +136,7 @@ class PlaylistViewController: UIViewController {
 
     
     @objc private func didTapShare() {
-        guard let url = URL(string: playlist.external_urls["spotify"] ?? "") else {
-            return
-        }
+        guard let url = URL(string: playlist.external_urls["spotify"] ?? "") else { return }
 
         let vc = UIActivityViewController(
             activityItems: [url],
@@ -155,7 +150,6 @@ class PlaylistViewController: UIViewController {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
-    
 }
 
 extension PlaylistViewController: UICollectionViewDelegate, UICollectionViewDataSource {

@@ -46,8 +46,19 @@ class ActionLabelView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        button.frame = CGRect(x: 0, y: height-40, width: width, height: 40)
-        label.frame = CGRect(x: 0, y: 0, width: width, height: height-45)
+        button.frame = CGRect(
+            x: 0,
+            y: height-40,
+            width: width,
+            height: 40
+        )
+        
+        label.frame = CGRect(
+            x: 0,
+            y: 0,
+            width: width,
+            height: height-45
+        )
     }
 
     func configure(with viewModel: ActionLabelViewViewModel) {

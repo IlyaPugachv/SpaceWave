@@ -56,13 +56,18 @@ class NewReleaseCollectionViewCell: UICollectionViewCell {
         let albumLabelSize = albumNameLabel.sizeThatFits(
             CGSize(
                 width: contentView.width-imageSize-10,
-                height: contentView.height-10 
-            ))
+                height: contentView.height-10
+            )
+        )
         artistNameLabel.sizeToFit()
         numberOfTracksLabel.sizeToFit()
 
         // Рамка альбома
-        albumCoverImageView.frame = CGRect(x: 5, y: 5, width: imageSize, height: imageSize)
+        albumCoverImageView.frame = CGRect(
+            x: 5,
+            y: 5,
+            width: imageSize,
+            height: imageSize)
         
         let albumLabelHeight = min(60, albumLabelSize.height)
         albumNameLabel.frame = CGRect(

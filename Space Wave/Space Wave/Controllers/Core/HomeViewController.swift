@@ -8,11 +8,11 @@ enum BrowseSectionType {
     var title: String {
         switch self {
         case .newReleases:
-            return "Новые выпущенные альбомы"
+            return "New album releases"
         case .featuredPlaylist:
-            return "Рекомендованные плейлисты"
+            return "Playlist recommended"
         case .recommendedTracks:
-            return "Рекомендации"
+            return "Recommended tracks"
         }
     }
 }
@@ -37,26 +37,16 @@ class HomeViewController: UIViewController {
         spinner.tintColor = .label
         spinner.hidesWhenStopped = true
         return spinner }()
-    
-//    private let playListLabel: UILabel = {
-//    let playListLabel = UILabel()
-//    playListLabel.text = "Популярные плейлисты"
-//    playListLabel.numberOfLines = 0 // Изменено значение numberOfLines на 0
-//    playListLabel.font = .systemFont(ofSize: 18, weight: .semibold)
-//    playListLabel.textColor = .white
-//    return playListLabel
-//    }()
-    
+
     private var sections = [BrowseSectionType]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Browse"
+        title = "Space Wave"
         view.backgroundColor = .systemBackground
         configureCollectionView()
         view.addSubview(spinner)
         glassButton()
-//        view.addSubview(playListLabel)
         fetchData()
         addLongTapGesture()
     }
@@ -64,11 +54,6 @@ class HomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
-//        playListLabel.translatesAutoresizingMaskIntoConstraints = false
-//        playListLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100).isActive = true // установка левой границы лейблы
-//        playListLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true // установка верхней границы лейблы
-//        playListLabel.heightAnchor.constraint(equalToConstant: 130).isActive = true // установка высоты лейблы
-//        playListLabel.widthAnchor.constraint(equalToConstant: 400).isActive = true // ширина лейбла плейлиста
     }
     
     private func addLongTapGesture() {
@@ -77,19 +62,15 @@ class HomeViewController: UIViewController {
     }
     
     @objc func didLongPress(_ gesture: UILongPressGestureRecognizer) {
-        guard gesture.state == .began else {
-            return
-        }
+        guard gesture.state == .began else { return }
         
         let touchPoint = gesture.location(in: collectionView)
         
-        guard let indexPath = collectionView.indexPathForItem(at: touchPoint), indexPath.section == 2 else {
-            return
-        }
+        guard let indexPath = collectionView.indexPathForItem(at: touchPoint), indexPath.section == 2 else { return }
          
         let model = tracks[indexPath.row]
         
-        let actionSheet = UIAlertController(title: model.name, message: "12313", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: model.name, message: "Do you want to add this track?", preferredStyle: .actionSheet)
        
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
@@ -130,7 +111,6 @@ class HomeViewController: UIViewController {
     }
     
     private func fetchData() {
-        
         let group = DispatchGroup()
         group.enter()
         group.enter()
@@ -203,7 +183,6 @@ class HomeViewController: UIViewController {
                   let tracks = recommendations?.tracks else {
                 fatalError("Models are nil")
             }
-            print("configureModels")
             self.configureModels(newAlbums: newAlbums, playlist: playlists, tracks: tracks)
         }
     }
@@ -322,7 +301,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case .recommendedTracks:
             let track = tracks[indexPath.row]
             PlaybackPresenter.shared.startPlayback(from: self, track: track)
-           
         }
     }
     
@@ -341,7 +319,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 
     static func createSectionLayout(section: Int) -> NSCollectionLayoutSection {
-        
         let supplementaryViews = [
             NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: NSCollectionLayoutSize(

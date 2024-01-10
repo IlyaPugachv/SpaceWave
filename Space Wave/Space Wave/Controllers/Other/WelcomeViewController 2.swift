@@ -2,13 +2,10 @@ import UIKit
 
 class WelcomeViewController: UIViewController {
     
-    private var nameLabelApp: UILabel = {
+    private var nameAppLabel: UILabel = {
         let label = UILabel()
         label.text = "Space Wave"
         label.textColor = .white
-        label.font = .systemFont(ofSize: 35, weight: .bold)
-        label.textAlignment = .left
-        label.numberOfLines = 0
         return label
     }()
     
@@ -17,7 +14,8 @@ class WelcomeViewController: UIViewController {
         button.backgroundColor = .white
         button.setTitle("Sign in Space Wave", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        return button }()
+        return button
+    }()
     
     private let imageView: UIImageView = {
         let imageBackground = UIImageView()
@@ -29,17 +27,17 @@ class WelcomeViewController: UIViewController {
     private let overlayView: UIView = {
        let view = UIView()
         view.backgroundColor = .black
-        view.alpha = 0.5
+        view.alpha = 0.8
         return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .darkGray
+        view.addSubview(nameAppLabel)
+        view.addSubview(signInButton)
         view.addSubview(imageView)
         view.addSubview(overlayView)
-        view.addSubview(signInButton)
-        view.addSubview(nameLabelApp)
         signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
     }
     
@@ -47,11 +45,6 @@ class WelcomeViewController: UIViewController {
         super.viewDidLayoutSubviews()
         overlayView.frame = view.bounds
         imageView.frame = view.bounds
-        nameLabelApp.frame = CGRect(x: 10, 
-                                    y: 70,
-                                    width: view.width-20,
-                                    height: 40)
-        
         signInButton.frame = CGRect(x: 20,
                                     y: view.height-50-view.safeAreaInsets.bottom,
                                     width: view.width-40,

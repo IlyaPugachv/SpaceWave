@@ -101,7 +101,6 @@ class LibraryToggleView: UIView {
                 width: 100,
                 height: 3
             )
-            
         }
     }
     

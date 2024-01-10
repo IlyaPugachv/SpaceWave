@@ -41,8 +41,18 @@ class LibraryAlbumsViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        noAlbumsView.frame = CGRect(x: (view.width-150)/2, y: (view.height-150)/2, width: 150, height: 150)
-        tableView.frame = CGRect(x: 0, y: 0, width: view.width, height: view.height)
+        noAlbumsView.frame = CGRect(
+            x: (view.width-150)/2,
+            y: (view.height-150)/2,
+            width: 150,
+            height: 150
+        )
+        tableView.frame = CGRect(
+            x: 0, 
+            y: 0,
+            width: view.width,
+            height: view.height
+        )
     }
 
     private func setUpNoAlbumsView() {

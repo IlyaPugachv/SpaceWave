@@ -27,8 +27,7 @@ class CollectionViewController: UIViewController {
         updateBarButtons()
         addChildren()
     }
-    
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrollView.frame = CGRect(
@@ -37,7 +36,13 @@ class CollectionViewController: UIViewController {
             width: view.width,
             height: view.height-view.safeAreaInsets.top-view.safeAreaInsets.bottom-55
         )
-        toggleView.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: 200, height: 55)
+        
+        toggleView.frame = CGRect(
+            x: 0,
+            y: view.safeAreaInsets.top,
+            width: 200,
+            height: 55
+        )
     }
     
     @objc func didTapSettings() {
