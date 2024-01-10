@@ -118,10 +118,7 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     @objc func didTapExit() {
-        let vc = SearchViewController()
-        vc.title = "Search"
-        vc.navigationItem.largeTitleDisplayMode = .never
-        navigationController?.pushViewController(vc, animated: true)
+      signOutTapped()
     }
     
     private func failedToGetProfile() {
@@ -136,9 +133,6 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
     private func configureModels() {
         sections.append(Section(title: "Your Settings", options: [Option(title: "Settings", handler: { [weak self] in
             DispatchQueue.main.async { self?.viewSettings() }})]))
-        
-        sections.append(Section(title: "Account", options: [Option(title: "Sign Out", handler: { [weak self] in
-            DispatchQueue.main.async { self?.signOutTapped() }})]))
     }
     
     private func signOutTapped() {
