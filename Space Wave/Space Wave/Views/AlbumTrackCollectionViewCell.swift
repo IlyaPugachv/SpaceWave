@@ -39,6 +39,7 @@ class AlbumTrackCollectionViewCell: UICollectionViewCell {
             width: contentView.width-15,
             height: contentView.height/2
         )
+        
         artistNameLabel.frame = CGRect(
             x: 10,
             y: contentView.height/2,

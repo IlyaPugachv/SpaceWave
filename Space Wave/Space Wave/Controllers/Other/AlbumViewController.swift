@@ -37,9 +37,7 @@ class AlbumViewController: UIViewController {
     )
 
     private var viewModels = [AlbumCollectionViewCellViewModel]()
-
     private var tracks = [AudioTrack]()
-
     private let album: Album
 
     init(album: Album) {
@@ -121,9 +119,7 @@ class AlbumViewController: UIViewController {
 }
 
 extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
+    func numberOfSections(in collectionView: UICollectionView) -> Int { 1 }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModels.count
@@ -164,7 +160,7 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
         collectionView.deselectItem(at: indexPath, animated: true)
         var track = tracks[indexPath.row]
         track.album = self.album
-//        PlaybackPresenter.shared.startPlayback(from: self, track: track)
+        PlaybackPresenter.shared.startPlayback(from: self, track: track)
     }
 }
 
@@ -175,6 +171,6 @@ extension AlbumViewController: PlaylistHeaderCollectionReusableViewDelegate {
             track.album = self.album
             return track
         })
-//        PlaybackPresenter.shared.startPlayback(from: self, tracks: tracksWithAlbum)
+        PlaybackPresenter.shared.startPlayback(from: self, tracks: tracksWithAlbum)
     }
 }

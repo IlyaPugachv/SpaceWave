@@ -6,7 +6,7 @@ class TabBarViewController: UITabBarController {
         super.viewDidLoad()
  
         let vc1 = HomeViewController()
-        let vc2 = SearchViewController()
+        let vc2 = PodcastsAndBooksViewController()
         let vc3 = CollectionViewController()
         
         // TODO: - Потом названия вкладок навигации нужно будет убрать!

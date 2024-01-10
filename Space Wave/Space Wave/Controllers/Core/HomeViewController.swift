@@ -3,16 +3,16 @@ import UIKit
 enum BrowseSectionType {
     case recommendedTracks(viewModels: [RecommendedTrackCellViewModel])
     case newReleases(viewModels: [NewReleasesCellViewModel])
-    case featuredPlaylist(viewModels: [FeaturedPlaylistCellViewModel])
+    case featuredPlaylists(viewModels: [FeaturedPlaylistCellViewModel])
     
     var title: String {
         switch self {
         case .newReleases:
-            return "New Released Albums"
-        case .featuredPlaylist:
-            return "Featured Playlists"
+            return "New album releases"
+        case .featuredPlaylists:
+            return "Playlist recommended"
         case .recommendedTracks:
-            return "Recommended"
+            return "Recommended tracks"
         }
     }
 }
@@ -37,36 +37,57 @@ class HomeViewController: UIViewController {
         spinner.tintColor = .label
         spinner.hidesWhenStopped = true
         return spinner }()
-    
-//    private let playListLabel: UILabel = {
-//    let playListLabel = UILabel()
-//    playListLabel.text = "Популярные плейлисты"
-//    playListLabel.numberOfLines = 0 // Изменено значение numberOfLines на 0
-//    playListLabel.font = .systemFont(ofSize: 18, weight: .semibold)
-//    playListLabel.textColor = .white
-//    return playListLabel
-//    }()
-    
+
     private var sections = [BrowseSectionType]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Browse"
+        title = "Space Wave"
         view.backgroundColor = .systemBackground
         configureCollectionView()
         view.addSubview(spinner)
-//        view.addSubview(playListLabel)
+        glassButton()
         fetchData()
+        addLongTapGesture()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
-//        playListLabel.translatesAutoresizingMaskIntoConstraints = false
-//        playListLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100).isActive = true // установка левой границы лейблы
-//        playListLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true // установка верхней границы лейблы
-//        playListLabel.heightAnchor.constraint(equalToConstant: 130).isActive = true // установка высоты лейблы
-//        playListLabel.widthAnchor.constraint(equalToConstant: 400).isActive = true // ширина лейбла плейлиста
+    }
+    
+    private func addLongTapGesture() {
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress(_:)))
+        collectionView.addGestureRecognizer(gesture)
+    }
+    
+    @objc func didLongPress(_ gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else { return }
+        
+        let touchPoint = gesture.location(in: collectionView)
+        
+        guard let indexPath = collectionView.indexPathForItem(at: touchPoint), indexPath.section == 2 else { return }
+         
+        let model = tracks[indexPath.row]
+        
+        let actionSheet = UIAlertController(title: model.name, message: "Do you want to add this track?", preferredStyle: .actionSheet)
+       
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        actionSheet.addAction(UIAlertAction(title: "Add", style: .default, handler: { [weak self] _ in
+            DispatchQueue.main.async {
+                let vc = LibraryPlaylistsViewController()
+                vc.selectionHandler = { playlist in
+                    APICaller.shared.addTrackToPlaylist(track: model, playlist: playlist) { success in
+                        // Позже напишем здесь то, что будем отображать пользователю если добавление плейлиста прошло успешно!
+                    }
+                }
+                vc.title = "Select playlist"
+                self?.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+            }
+        }))
+        
+        present(actionSheet, animated: true)
     }
     
     private func configureCollectionView() {
@@ -90,7 +111,6 @@ class HomeViewController: UIViewController {
     }
     
     private func fetchData() {
-        
         let group = DispatchGroup()
         group.enter()
         group.enter()
@@ -163,18 +183,33 @@ class HomeViewController: UIViewController {
                   let tracks = recommendations?.tracks else {
                 fatalError("Models are nil")
             }
-            print("configureModels")
-            self.configureModels(newAlbums: newAlbums, playlist: playlists, tracks: tracks)
+            self.configureModels(newAlbums: newAlbums, playlists: playlists, tracks: tracks)
         }
+    }
+    
+    private func glassButton() {
+       view.backgroundColor = .systemBackground
+       navigationItem.rightBarButtonItem = UIBarButtonItem(
+           image: UIImage(systemName: "magnifyingglass"),
+           style: .done,
+           target: self,
+           action: #selector(didTapGlass))
+   }
+    
+    @objc func didTapGlass() {
+        let vc = SearchViewController()
+        vc.title = "Search"
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func configureModels(
         newAlbums: [Album],
-        playlist: [Playlist],
+        playlists: [Playlist],
         tracks: [AudioTrack]
     ) {
         self.newAlbums = newAlbums
-        self.playlist = playlist
+        self.playlist = playlists
         self.tracks = tracks
         
         // Настройка модели
@@ -187,10 +222,11 @@ class HomeViewController: UIViewController {
            )
         })))
         
-        sections.append(.featuredPlaylist(viewModels: playlist.compactMap({
+        sections.append(.featuredPlaylists(viewModels: playlists.compactMap({
             return FeaturedPlaylistCellViewModel(
                 name: $0.name,
-                artworkURL: URL(string: $0.images.first?.url ?? "")
+                artworkURL: URL(string: $0.images.first?.url ?? ""),
+                creatorName: $0.owner.display_name
             )
         })))
         
@@ -213,7 +249,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return viewModels.count
         case .newReleases(let viewModels):
             return viewModels.count
-        case .featuredPlaylist(let viewModels):
+        case .featuredPlaylists(let viewModels):
             return viewModels.count
         }
     }
@@ -231,7 +267,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.configure(with: viewModel)
             return cell
             
-        case .featuredPlaylist(let viewModels):
+        case .featuredPlaylists(let viewModels):
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier, for: indexPath) as? FeaturedPlaylistCollectionViewCell else {
                 return UICollectionViewCell()
             }
@@ -248,9 +284,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        HapticsManager.shared.vibrateForSelection()
         let section = sections[indexPath.section]
         switch section {
-        case .featuredPlaylist:
+        case .featuredPlaylists:
             let playlist = playlist[indexPath.row]
             let vc = PlaylistViewController(playlist: playlist)
             vc.title = playlist.name
@@ -263,7 +300,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             vc.navigationItem.largeTitleDisplayMode = .never
             navigationController?.pushViewController(vc, animated: true)
         case .recommendedTracks:
-            break
+            let track = tracks[indexPath.row]
+            PlaybackPresenter.shared.startPlayback(from: self, track: track)
         }
     }
     
@@ -282,7 +320,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 
     static func createSectionLayout(section: Int) -> NSCollectionLayoutSection {
-        
         let supplementaryViews = [
             NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: NSCollectionLayoutSize(
@@ -316,7 +353,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let horizontalGroup = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(0.9),
-                    heightDimension: .absolute(170)
+                    heightDimension: .absolute(110) // ширина между альбоами и плейлистами
                 ),
                 subitem: verticalGroup,
                 count: 1

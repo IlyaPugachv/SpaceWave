@@ -4,6 +4,8 @@ class PlaylistViewController: UIViewController {
 
     private let playlist: Playlist
     
+    public var isOwner = false
+    
     private let collectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewCompositionalLayout(sectionProvider: {  _, _ -> NSCollectionLayoutSection? in
@@ -46,6 +48,7 @@ class PlaylistViewController: UIViewController {
     }
     
     private var viewModels = [RecommendedTrackCellViewModel]()
+    private var tracks = [AudioTrack]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +75,7 @@ class PlaylistViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let model):
-                    
+                    self?.tracks = model.tracks.items.compactMap({ $0.track })
                     self?.viewModels = model.tracks.items.compactMap({
                         RecommendedTrackCellViewModel(
                             name: $0.track.name,
@@ -87,13 +90,53 @@ class PlaylistViewController: UIViewController {
             }
         }
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapShare))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .action,
+            target: self,
+            action: #selector(didTapShare)
+        )
+        
+        let gesture = UILongPressGestureRecognizer( target: self,
+                                                    action: #selector(didLongPress(_:)))
+        collectionView.addGestureRecognizer(gesture)
     }
     
-    @objc private func didTapShare() {
-        guard let url = URL(string: playlist.external_urls["spotify"] ?? "") else {
-            return
+    @objc private func didLongPress(_ gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else { return }
+        
+        let touchPoint = gesture.location(in: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: touchPoint) else { return }
+        
+        let tracksToDelete = tracks[indexPath.row]
+        
+        let actionSheet = UIAlertController(
+            title: tracksToDelete.name,
+            message: "Would you like to remove this from the playlists?",
+            preferredStyle: .actionSheet
+        )
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { [weak self] _ in
+            guard let strongSelf = self else { return }
+            
+            APICaller.shared.removeTrackFromPlaylist(track: tracksToDelete, playlist: strongSelf.playlist) { success in
+                // Операцию по удалению треков выполняем в главном потоке!
+                DispatchQueue.main.async {
+                    if success {
+                        strongSelf.tracks.remove(at: indexPath.row)
+                        strongSelf.viewModels.remove(at: indexPath.row)
+                        strongSelf.collectionView.reloadData()
+                    }
+                }
+            }
         }
+                                           )
+        )
+        present(actionSheet, animated: true, completion: nil)
+    }
+
+    
+    @objc private func didTapShare() {
+        guard let url = URL(string: playlist.external_urls["spotify"] ?? "") else { return }
 
         let vc = UIActivityViewController(
             activityItems: [url],
@@ -107,13 +150,10 @@ class PlaylistViewController: UIViewController {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
-    
 }
 
 extension PlaylistViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
-    }
+    func numberOfSections(in collectionView: UICollectionView) -> Int { 1 }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModels.count
@@ -154,12 +194,15 @@ extension PlaylistViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         // Включить трек
+        let index = indexPath.row
+        let track = tracks[index]
+        PlaybackPresenter.shared.startPlayback(from: self, track: track)
     }
 }
 
 extension PlaylistViewController: PlaylistHeaderCollectionReusableViewDelegate {
     func playlistHeaderCollectionReusableViewDidTapPlayAll(_ header: PlaylistHeaderCollectionReusableView) {
-        //
+        PlaybackPresenter.shared.startPlayback(from: self, tracks: tracks)
     }
 }
 
