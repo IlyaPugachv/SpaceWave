@@ -6,7 +6,7 @@ class SearchViewController: UIViewController, UISearchResultsUpdating {
             let results = UIViewController()
             results.view.backgroundColor = .red
             let vc = UISearchController(searchResultsController: results)
-            vc.searchBar.placeholder = "Любимые треки, подкасты, книги"
+            vc.searchBar.placeholder = "Favorite tracks, podcasts, books"
             vc.searchBar.searchBarStyle = .minimal
             vc.definesPresentationContext = true
             return vc

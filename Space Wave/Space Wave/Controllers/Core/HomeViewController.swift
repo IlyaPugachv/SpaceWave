@@ -352,7 +352,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let horizontalGroup = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(0.9),
-                    heightDimension: .absolute(170)
+                    heightDimension: .absolute(110) // ширина между альбоами и плейлистами
                 ),
                 subitem: verticalGroup,
                 count: 1

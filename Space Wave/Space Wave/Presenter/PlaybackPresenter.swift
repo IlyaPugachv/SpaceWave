@@ -28,7 +28,7 @@ final class PlaybackPresenter {
     }
 
     var playerVC: PlayerViewController?
-    
+
     var player: AVPlayer?
     var playerQueue: AVQueuePlayer?
 
@@ -100,6 +100,7 @@ extension PlaybackPresenter: PlayerViewControllerDelegate {
 
     func didTapForward() {
         if tracks.isEmpty {
+            // Not playlist or album
             player?.pause()
         }
         else if let player = playerQueue {
@@ -112,6 +113,7 @@ extension PlaybackPresenter: PlayerViewControllerDelegate {
 
     func didTapBackward() {
         if tracks.isEmpty {
+            // Not playlist or album
             player?.pause()
             player?.play()
         }
