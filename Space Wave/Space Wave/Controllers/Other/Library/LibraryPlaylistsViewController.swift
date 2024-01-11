@@ -1,10 +1,12 @@
 import UIKit
 
-class LibraryPlaylistsViewController: UIViewController {
+final class LibraryPlaylistsViewController: UIViewController {
     
     var playlists = [Playlist]()
     
     public var selectionHandler: ((Playlist) -> Void)?
+    
+    // MARK: - Private
     
     private let noPlaylistView = ActionLabelView()
     
@@ -14,6 +16,8 @@ class LibraryPlaylistsViewController: UIViewController {
         tablewView.isHidden = true
         return tablewView
     }()
+    
+    // MARK: - Override
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +32,7 @@ class LibraryPlaylistsViewController: UIViewController {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapClose))
         }
     }
-                           
+    
     @objc func didTapClose() {
         dismiss(animated: true, completion: nil)
     }
@@ -38,11 +42,15 @@ class LibraryPlaylistsViewController: UIViewController {
         noPlaylistView.frame = CGRect(
             x: 0,
             y: 0,
-            width: 160, 
-            height: 160)
+            width: 160,
+            height: 160
+        )
+        
         noPlaylistView.center = view.center
         tableView.frame = view.bounds
     }
+    
+    // MARK: - Private func
     
     private func fetchData() {
         APICaller.shared.getCurrentUserPlaylists { [weak self] result in
@@ -62,7 +70,7 @@ class LibraryPlaylistsViewController: UIViewController {
         view.addSubview(noPlaylistView)
         noPlaylistView.delegate = self
         noPlaylistView.configure(with: ActionLabelViewViewModel(
-            text: "You don't have any playlist yet. ",
+            text: "You don't have any playlist yet.",
             actionTitle: "Create"))
     }
     
@@ -71,7 +79,6 @@ class LibraryPlaylistsViewController: UIViewController {
             noPlaylistView.isHidden = false
             tableView.isHidden = true
         } else {
-            // Покажем таблицу
             tableView.reloadData()
             noPlaylistView.isHidden = true
             tableView.isHidden = false
@@ -81,13 +88,13 @@ class LibraryPlaylistsViewController: UIViewController {
     public func showCreatePlaylistAlert() {
         let alert = UIAlertController(
             title: "New Playlists",
-            message: "Enter playlist name.",
+            message: "Enter playlist name",
             preferredStyle: .alert
         )
         alert.addTextField { textField in
             textField.placeholder = "Playlist..."
         }
-
+        
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Create", style: .default, handler: { _ in
             guard let field = alert.textFields?.first,
@@ -95,11 +102,10 @@ class LibraryPlaylistsViewController: UIViewController {
                   !text.trimmingCharacters(in: .whitespaces).isEmpty else {
                 return
             }
-
+            
             APICaller.shared.createPlaylist(with: text) { [weak self] success in
                 if success {
                     HapticsManager.shared.vibrate(for: .success)
-                    // Refresh list of playlists
                     self?.fetchData()
                 }
                 else {
@@ -112,9 +118,10 @@ class LibraryPlaylistsViewController: UIViewController {
     }
 }
 
+// MARK: - Extension
+
 extension LibraryPlaylistsViewController: ActionLabelViewDelegate {
     func actionLabelViewDidTapButton(_ actionView: ActionLabelView) {
-        // Создаем собственный плейлист
         showCreatePlaylistAlert()
     }
 }
@@ -151,22 +158,12 @@ extension LibraryPlaylistsViewController: UITableViewDelegate, UITableViewDataSo
             dismiss(animated: true, completion: nil)
             return
         }
-
+        
         let vc = PlaylistViewController(playlist: playlist)
         vc.navigationItem.largeTitleDisplayMode = .never
         vc.isOwner = true
         navigationController?.pushViewController(vc, animated: true)
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//        let playlist = playlists[indexPath.row]
-//        let vc = PlaylistViewController(playlist: playlist)
-//        vc.navigationItem.largeTitleDisplayMode = .never
-//        navigationController?.pushViewController(vc, animated: true)
-//    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { // высота ячейки плейлиста
-        return 70
-    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { 70 }
 }

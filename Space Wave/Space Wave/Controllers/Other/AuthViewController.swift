@@ -1,7 +1,7 @@
 import UIKit
 import WebKit
 
-class AuthViewController: UIViewController, WKNavigationDelegate {
+final class AuthViewController: UIViewController, WKNavigationDelegate {
     
     private var webView: WKWebView = {
         let prefs = WKWebpagePreferences()
@@ -11,7 +11,6 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
         let webView = WKWebView(frame: .zero, configuration: config)
         return webView }()
     
-    // TODO: Сообщит нашему WelcomeViewController что пользователь успешно вошел в систему
     public var comletionHandler: ((Bool)-> Void)?
     
     override func viewDidLoad() {
@@ -31,7 +30,6 @@ class AuthViewController: UIViewController, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) { guard let url = webView.url else { return }
         
-        // TODO: Обмена кода на токен доступа
         guard let code = URLComponents(string: url.absoluteString)?.queryItems?.first(where: { $0.name == "code" })?.value else { return }
         
         webView.isHidden = true

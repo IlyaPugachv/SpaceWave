@@ -1,7 +1,7 @@
 import SafariServices
 import UIKit
 
-class SearchViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate {
+final class SearchViewController: UIViewController, UISearchBarDelegate {
 
     let searchController: UISearchController = {
         let vc = UISearchController(searchResultsController: SearchResultsViewController())
@@ -37,7 +37,6 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UISearchB
                 bottom: 10,
                 trailing: 0
             )
-
             return NSCollectionLayoutSection(group: group)
         })
     )
@@ -49,7 +48,6 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UISearchB
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
         view.addSubview(collectionView)
@@ -96,10 +94,9 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UISearchB
             }
         }
     }
-
-    func updateSearchResults(for searchController: UISearchController) {
-    }
 }
+
+// MARK: - Extension
 
 extension SearchViewController: SearchResultsViewControllerDelegate {
     func didTapResult(_ result: SearchResult) {
@@ -128,9 +125,7 @@ extension SearchViewController: SearchResultsViewControllerDelegate {
 }
 
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
+    func numberOfSections(in collectionView: UICollectionView) -> Int { 1 }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categories.count

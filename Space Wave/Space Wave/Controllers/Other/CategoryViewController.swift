@@ -1,8 +1,10 @@
 import UIKit
 
-class CategoryViewController: UIViewController {
+final class CategoryViewController: UIViewController {
     let category: Category
 
+    // MARK: - Private
+    
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout(sectionProvider: { _, _ -> NSCollectionLayoutSection? in
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
 
@@ -67,6 +69,8 @@ class CategoryViewController: UIViewController {
         collectionView.frame = view.bounds
     }
 }
+
+// MARK: - Extension
 
 extension CategoryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

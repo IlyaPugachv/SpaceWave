@@ -1,6 +1,6 @@
 import UIKit
 
-class CollectionViewController: UIViewController {
+final class CollectionViewController: UIViewController {
     
     private let playlistVC = LibraryPlaylistsViewController()
     private let albumsVC = LibraryAlbumsViewController()
@@ -20,14 +20,17 @@ class CollectionViewController: UIViewController {
         toggleView.delegate = self
         view.addSubview(scrollView)
         view.addSubview(toggleView)
-        scrollView.contentSize = CGSize(width: view.width*2, height: scrollView.height)
+        
+        scrollView.contentSize = CGSize(
+            width: view.width*2,
+            height: scrollView.height
+        )
         profileButton()
         glassButton()
-        
         updateBarButtons()
         addChildren()
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         scrollView.frame = CGRect(
@@ -89,11 +92,10 @@ class CollectionViewController: UIViewController {
     @objc private func didTapAdd() {
         playlistVC.showCreatePlaylistAlert()
     }
-    
-    // Здесь мы добавляем два дочерних контроллера
+
     private func addChildren() {
         addChild(playlistVC)
-        scrollView.addSubview(playlistVC.view) // Это позволяет отображать содержимое playlistVC внутри scrollView
+        scrollView.addSubview(playlistVC.view)
         playlistVC.view.frame = CGRect(
             x: 0,
             y: 0,
@@ -113,7 +115,6 @@ class CollectionViewController: UIViewController {
         albumsVC.didMove(toParent: self)
     }
 }
-
 
 extension CollectionViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

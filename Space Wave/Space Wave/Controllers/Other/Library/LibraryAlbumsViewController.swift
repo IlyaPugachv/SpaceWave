@@ -1,6 +1,6 @@
 import UIKit
 
-class LibraryAlbumsViewController: UIViewController {
+final class LibraryAlbumsViewController: UIViewController {
 
     var albums = [Album]()
 
@@ -83,12 +83,10 @@ class LibraryAlbumsViewController: UIViewController {
 
     private func updateUI() {
         if albums.isEmpty {
-            // Show label
             noAlbumsView.isHidden = false
             tableView.isHidden = true
         }
         else {
-            // Show table
             tableView.reloadData()
             noAlbumsView.isHidden = true
             tableView.isHidden = false
@@ -134,7 +132,5 @@ extension LibraryAlbumsViewController: UITableViewDelegate, UITableViewDataSourc
         navigationController?.pushViewController(vc, animated: true)
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
-    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { 70 }
 }

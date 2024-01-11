@@ -5,7 +5,7 @@ protocol LibraryToggleViewDelegate: AnyObject {
     func libraryToggleViewDidTapAlbums(_ toggleView: LibraryToggleView)
 }
 
-class LibraryToggleView: UIView {
+final class LibraryToggleView: UIView {
     
     enum State {
         case playlist
@@ -15,6 +15,8 @@ class LibraryToggleView: UIView {
     var state: State = .playlist
     
     weak var delegate: LibraryToggleViewDelegate?
+    
+    // MARK: - Private
     
     private let playlistButton: UIButton = {
         let button = UIButton()
@@ -39,6 +41,8 @@ class LibraryToggleView: UIView {
         
     }()
 
+    // MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(playlistButton)

@@ -1,6 +1,6 @@
 import UIKit
 
-class WelcomeViewController: UIViewController {
+final class WelcomeViewController: UIViewController {
     
     private var nameLabelApp: UILabel = {
         let label = UILabel()

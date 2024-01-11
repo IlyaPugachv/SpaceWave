@@ -1,6 +1,6 @@
 import UIKit
 
-class SettingsViewController: UIViewController {
+final class SettingsViewController: UIViewController {
     
     private let newsLabel: UILabel = {
         let label = UILabel()
@@ -22,6 +22,7 @@ class SettingsViewController: UIViewController {
         newsLabel.frame = CGRect(x: 10,
                                  y: 350,
                                  width: view.width-20,
-                                 height: 40)
+                                 height: 40
+        )
     }
 }

@@ -1,6 +1,6 @@
 import UIKit
 
-class AlbumViewController: UIViewController {
+final class AlbumViewController: UIViewController {
 
     private let collectionView = UICollectionView(
         frame: .zero,
@@ -40,6 +40,8 @@ class AlbumViewController: UIViewController {
     private var tracks = [AudioTrack]()
     private let album: Album
 
+    // MARK: - Init
+    
     init(album: Album) {
         self.album = album
         super.init(nibName: nil, bundle: nil)
@@ -87,7 +89,6 @@ class AlbumViewController: UIViewController {
                 }
             }
         }))
-
         present(actionSheet, animated: true)
     }
 
@@ -163,6 +164,8 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
         PlaybackPresenter.shared.startPlayback(from: self, track: track)
     }
 }
+
+// MARK: - Extension
 
 extension AlbumViewController: PlaylistHeaderCollectionReusableViewDelegate {
     func playlistHeaderCollectionReusableViewDidTapPlayAll(_ header: PlaylistHeaderCollectionReusableView) {

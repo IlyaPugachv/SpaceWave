@@ -1,5 +1,7 @@
 import UIKit
 
+// MARK: - Enum
+
 enum BrowseSectionType {
     case recommendedTracks(viewModels: [RecommendedTrackCellViewModel])
     case newReleases(viewModels: [NewReleasesCellViewModel])
@@ -17,10 +19,8 @@ enum BrowseSectionType {
     }
 }
 
-// TODO: - Этот View Controller мы сделали стартовым!
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
     
-    // массивы где мы будем хранить данные!
     private var newAlbums: [Album] = []
     private var playlist: [Playlist] = []
     private var tracks: [AudioTrack] = []
@@ -40,6 +40,8 @@ class HomeViewController: UIViewController {
 
     private var sections = [BrowseSectionType]()
     
+    // MARK: - Override
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Space Wave"
@@ -55,6 +57,8 @@ class HomeViewController: UIViewController {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
+    
+    // MARK: - Private
     
     private func addLongTapGesture() {
         let gesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress(_:)))
@@ -79,14 +83,12 @@ class HomeViewController: UIViewController {
                 let vc = LibraryPlaylistsViewController()
                 vc.selectionHandler = { playlist in
                     APICaller.shared.addTrackToPlaylist(track: model, playlist: playlist) { success in
-                        // Позже напишем здесь то, что будем отображать пользователю если добавление плейлиста прошло успешно!
                     }
                 }
                 vc.title = "Select playlist"
                 self?.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
             }
         }))
-        
         present(actionSheet, animated: true)
     }
     
@@ -120,7 +122,6 @@ class HomeViewController: UIViewController {
         var featuredPlaylist: FeaturedPlaylistsResponse?
         var recommendations: RecommendationsResponse?
         
-        // Новые релизы
         APICaller.shared.getNewReleases { result in
             defer {
                 group.leave()
@@ -132,8 +133,7 @@ class HomeViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
-        
-        // Избранные плейлисты
+    
         APICaller.shared.getFeaturedPlaylists { result in
             defer {
                 group.leave()
@@ -148,7 +148,6 @@ class HomeViewController: UIViewController {
             }
         }
         
-        // Рекомендация треков
         APICaller.shared.gerRecommendedGenres { result in
             switch result {
             case .success(let model):
@@ -212,7 +211,6 @@ class HomeViewController: UIViewController {
         self.playlist = playlists
         self.tracks = tracks
         
-        // Настройка модели
         sections.append(.newReleases(viewModels: newAlbums.compactMap({
             return NewReleasesCellViewModel(
                 name: $0.name,
@@ -240,6 +238,8 @@ class HomeViewController: UIViewController {
         collectionView.reloadData()
     }
 }
+
+// MARK: - Extension
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -287,18 +287,21 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         HapticsManager.shared.vibrateForSelection()
         let section = sections[indexPath.section]
         switch section {
+            
         case .featuredPlaylists:
             let playlist = playlist[indexPath.row]
             let vc = PlaylistViewController(playlist: playlist)
             vc.title = playlist.name
             vc.navigationItem.largeTitleDisplayMode = .never
             navigationController?.pushViewController(vc, animated: true)
+            
         case .newReleases:
             let album = newAlbums[indexPath.row]
             let vc = AlbumViewController(album: album)
             vc.title = album.name
             vc.navigationItem.largeTitleDisplayMode = .never
             navigationController?.pushViewController(vc, animated: true)
+            
         case .recommendedTracks:
             let track = tracks[indexPath.row]
             PlaybackPresenter.shared.startPlayback(from: self, track: track)
@@ -333,7 +336,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         switch section {
         case 0:
-            // Позиции
             let item = NSCollectionLayoutItem(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
@@ -341,7 +343,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             
             item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
            
-            // Вертикальный и горизонтальный группы
             let verticalGroup = NSCollectionLayoutGroup.vertical(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
@@ -353,32 +354,29 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let horizontalGroup = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(0.9),
-                    heightDimension: .absolute(110) // ширина между альбоами и плейлистами
+                    heightDimension: .absolute(110)
                 ),
                 subitem: verticalGroup,
                 count: 1
             )
             
-            // Секции
             let section = NSCollectionLayoutSection(group: horizontalGroup)
             section.orthogonalScrollingBehavior = .groupPaging
             section.boundarySupplementaryItems = supplementaryViews
             return section
             
         case 1:
-            
-            // Позиции
             let item = NSCollectionLayoutItem(
                 layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .absolute(200) , // ширина иконки плейлиста
-                    heightDimension: . absolute(200))) // высота иконки плейлиста
+                    widthDimension: .absolute(200),
+                    heightDimension: . absolute(200)))
             
             item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
             
             let horizontalGroup = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .absolute(170), // расстояние между двумя плейлистами
-                    heightDimension: .absolute(200) // расстояние между плейлистами и треками
+                    widthDimension: .absolute(170),
+                    heightDimension: .absolute(200)
                 ),
                 subitem: item,
                 count: 1
@@ -389,8 +387,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return section
             
         case 2:
-            
-            // Позиции
             let item = NSCollectionLayoutItem(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
@@ -407,13 +403,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 count: 1
             )
             
-            // Секции
             let section = NSCollectionLayoutSection(group: group)
             section.boundarySupplementaryItems = supplementaryViews
             return section
             
         default:
-            // Позиции
             let item = NSCollectionLayoutItem(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
@@ -421,7 +415,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             
             item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
             
-            // Группы
             let group = NSCollectionLayoutGroup.vertical(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),

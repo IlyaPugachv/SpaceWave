@@ -48,7 +48,6 @@ final class PlaylistHeaderCollectionReusableView: UICollectionReusableView {
         button.layer.masksToBounds = true
         return button
     }()
-
     
     // MARK: - Init
 

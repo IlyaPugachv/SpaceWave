@@ -13,7 +13,7 @@ final class APICaller {
         case faileedToGetData
     }
     
-    // MARK: - Альбомы
+    // MARK: - Albums
     
     public func getAlbumDetails(for album: Album, completion: @escaping (Result<AlbumDetailsResponse, Error>) -> Void) {
         createRequest(
@@ -82,7 +82,7 @@ final class APICaller {
         }
     }
     
-    // MARK: - Плейлисты
+    // MARK: - Playlists
     
     public func getPlaylistDetails(for playlist: Playlist, completion: @escaping (Result<PlaylistDetailsResponse, Error>) -> Void) {
         createRequest(
@@ -133,11 +133,11 @@ final class APICaller {
     }
 
     public func createPlaylist(with name: String, completion: @escaping (Bool) -> Void) {
-        getCurrentUserProfile { result in // нужен ли здесь [weaks self] ?
+        getCurrentUserProfile { result in
             switch result {
             case .success(let profile):
                 let urlString = Constants.baseAPIURL + "/users/\(profile.id)/playlists"
-                createRequest(with: URL(string: urlString), type: .POST) { baseRequest in // self?.createRequest(with: URL(string: urlString), type: .POST) { baseRequest in - перепроверь, в примере делали с селфом!
+                createRequest(with: URL(string: urlString), type: .POST) { baseRequest in
                     var request = baseRequest
                     let json = [
                         "name": name
@@ -171,7 +171,7 @@ final class APICaller {
                 print(error.localizedDescription)
             }
         }
-    } // В этом методе посмотришь -> MARK: - Private + ENUM HTTPMethod внизу, возможно там нужно будет поиграиться со областями видимости!
+    }
 
     public func addTrackToPlaylist(
         track: AudioTrack,
@@ -260,7 +260,7 @@ final class APICaller {
         }
     }
     
-    // MARK: - Профиль
+    // MARK: - Profile
     
     public func getCurrentUserProfile(completion: @escaping (Result<UserProfile, Error>) -> Void) {
         createRequest(
@@ -286,9 +286,8 @@ final class APICaller {
         }
     }
     
-    // MARK: - Просмотр
+    // MARK: - Viewing
     
-    // Запрос для вызова новых релизов с сервера (приходит 1)
     public func getNewReleases(completion: @escaping ((Result<NewReleasesResponse, Error>)) -> Void) {
         createRequest(with: URL(string: Constants.baseAPIURL + "/browse/new-releases?limit=10"), type: .GET) { request in
             let task = URLSession.shared.dataTask(with: request) { data, _, error in
@@ -309,7 +308,6 @@ final class APICaller {
         }
     }
     
-    // Запрос для вызова рекомендуемых плейлистов с сервера
     public func getFeaturedPlaylists(completion: @escaping ((Result<FeaturedPlaylistsResponse, Error>) -> Void)) {
         createRequest(
             with: URL(string: Constants.baseAPIURL + "/browse/featured-playlists?limit=20"),
@@ -333,7 +331,6 @@ final class APICaller {
         }
     }
     
-    // Запрос для вызова рекомендаций с сервера
     public func getRecommendations(genres: Set<String>, completion: @escaping ((Result<RecommendationsResponse, Error>) -> Void)) {
         let seeds = genres.joined(separator: ",")
         createRequest(
