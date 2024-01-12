@@ -5,6 +5,8 @@ final class AuthManager {
     
     private var refreshingToken = false
 
+    // MARK: - Constants
+    
     struct Constants {
         static let clientID = "714632e92cbe48c88e9647ff28809966"
         static let clientSecret = "68ab8b2c27844737b88c4f41a7ac3d3a"
@@ -16,7 +18,6 @@ final class AuthManager {
     
     private init() {}
     
-    // TODO: - Этот блок кода создает авторизационный URL для сервиса Spotify.
     public var signInURI: URL? {
         let string = "\(Constants.base)?response_type=code&client_id=\(Constants.clientID)&scope=\(Constants.scopes)&redirect_uri=\(Constants.redirectURI)&show_dialog=TRUE"
         return URL(string: string)
@@ -48,7 +49,7 @@ final class AuthManager {
         completion: @escaping ((Bool) -> Void)
     ) {
         
-        // MARK: - Получение токена
+        // MARK: - Getting a token
         guard let url = URL(string: Constants.tokenAPIURL) else { return }
         
         var components = URLComponents()
@@ -99,16 +100,13 @@ final class AuthManager {
     
     private var onRefreshBlocks = [((String) -> Void)]()
     
-        // TODO: - Предоставляет действительный токен для использования в вызовах API
     public func withValidToken(completion: @escaping (String) -> Void) {
         guard !refreshingToken else {
-            // Добавление дополнения
             onRefreshBlocks.append(completion)
             return
         }
 
         if shouldRefreshToken {
-            // Обновление
             refreshIfNeeded { [weak self] success in
                 if let token = self?.accessToken, success {
                     completion(token)
@@ -125,7 +123,6 @@ final class AuthManager {
         
         guard let refreshToken = self.refreshToken else { return }
         
-        // MARK: - Обновление нашего токена
         guard let url = URL(string: Constants.tokenAPIURL) else { return }
         
         refreshingToken = true

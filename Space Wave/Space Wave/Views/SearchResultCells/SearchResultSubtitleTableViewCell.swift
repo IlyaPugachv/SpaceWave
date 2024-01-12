@@ -1,27 +1,31 @@
 import UIKit
 import SDWebImage
 
-class SearchResultSubtitleTableViewCell: UITableViewCell {
+final class SearchResultSubtitleTableViewCell: UITableViewCell {
     static let identfier = "SearchResultSubtitleTableViewCell"
-
+    
+    // MARK: - Private
+    
     private let label: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         return label
     }()
-
+    
     private let subtitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .secondaryLabel
         label.numberOfLines = 1
         return label
     }()
-
+    
     private let iconImageViewe: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
+    
+    // MARK: - Init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -31,11 +35,11 @@ class SearchResultSubtitleTableViewCell: UITableViewCell {
         contentView.clipsToBounds = true
         accessoryType = .disclosureIndicator
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError()
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         let imageSize: CGFloat = contentView.height-10
@@ -52,7 +56,7 @@ class SearchResultSubtitleTableViewCell: UITableViewCell {
             width: contentView.width-iconImageViewe.right-15,
             height: labelHeight
         )
-
+        
         subtitleLabel.frame = CGRect(
             x: iconImageViewe.right+10,
             y: label.bottom,
@@ -60,14 +64,14 @@ class SearchResultSubtitleTableViewCell: UITableViewCell {
             height: labelHeight
         )
     }
-
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         iconImageViewe.image = nil
         label.text = nil
         subtitleLabel.text = nil
     }
-
+    
     func configure(with viewModel: SearchResultSubtitleTableViewCellViewModel) {
         label.text = viewModel.title
         subtitleLabel.text = viewModel.subtitle

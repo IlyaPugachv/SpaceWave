@@ -19,7 +19,7 @@ final class ProfileViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         configureModels()
         fetchProfile()
-        exitButton() // вынеси в отдельную функцию!
+        exitButton() 
         tableView.dataSource = self
         tableView.delegate = self
         title = "Profile"

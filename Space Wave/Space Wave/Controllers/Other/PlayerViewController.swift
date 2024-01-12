@@ -8,7 +8,7 @@ protocol PlayerViewControllerDelegate: AnyObject {
     func didSlideSlider(_ value: Float)
 }
 
-class PlayerViewController: UIViewController {
+final class PlayerViewController: UIViewController {
 
     weak var dataSource: PlayerDataSource?
     weak var delegate: PlayerViewControllerDelegate?
@@ -61,12 +61,9 @@ class PlayerViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    @objc private func didTapAction() {
-        // Actions
-    }
+    @objc private func didTapAction() {}
 
     func refreshUI() {
-
         configure()
     }
 }

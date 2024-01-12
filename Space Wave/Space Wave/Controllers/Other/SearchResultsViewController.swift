@@ -9,12 +9,14 @@ protocol SearchResultsViewControllerDelegate: AnyObject {
     func didTapResult(_ result: SearchResult)
 }
 
-class SearchResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class SearchResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     weak var delegate: SearchResultsViewControllerDelegate?
+    
+    // MARK: - Private
 
     private var sections: [SearchSection] = []
-
+    
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .systemBackground

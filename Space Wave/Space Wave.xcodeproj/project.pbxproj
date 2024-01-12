@@ -161,6 +161,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC306AB12B4FFBEE00040D8F /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				BC7126582B04BB3B000581DB /* shootingStars.json */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 		BC3A261C2B0E2BC000123E08 /* Reviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,7 +273,7 @@
 		BC4A2AE72AFE06E90027B9AC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BC7126582B04BB3B000581DB /* shootingStars.json */,
+				BC306AB12B4FFBEE00040D8F /* Animations */,
 				BC4A2AD72AFCD3C90027B9AC /* Assets.xcassets */,
 				BC4A2ACE2AFCD3C70027B9AC /* AppDelegate.swift */,
 				BC4A2AD02AFCD3C70027B9AC /* SceneDelegate.swift */,

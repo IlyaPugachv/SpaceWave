@@ -43,10 +43,11 @@ final class LaunchScreenWithAnimationViewController: UIViewController {
         lottieView.play()
         
         lottieView.frame = CGRect(
-            x: view.frame.width/2 - 100,
+            x: view.frame.width/2 - 90,
             y: 250,
-            width: 140,
-            height: 140)
+            width: 145,
+            height: 145
+        )
         view.addSubview(lottieView)
     }
 }

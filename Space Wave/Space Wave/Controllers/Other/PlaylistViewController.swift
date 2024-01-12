@@ -1,11 +1,13 @@
 import UIKit
 
-class PlaylistViewController: UIViewController {
+final class PlaylistViewController: UIViewController {
 
     private let playlist: Playlist
     
     public var isOwner = false
     
+    // MARK: - Private
+
     private let collectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewCompositionalLayout(sectionProvider: {  _, _ -> NSCollectionLayoutSection? in
@@ -19,7 +21,7 @@ class PlaylistViewController: UIViewController {
             let group = NSCollectionLayoutGroup.vertical(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1),
-                    heightDimension: .absolute(60) // высота каждой колонки группы треков
+                    heightDimension: .absolute(60)
                 ),
                 subitem: item,
                 count: 1
@@ -38,6 +40,8 @@ class PlaylistViewController: UIViewController {
         })
     )
     
+    // MARK: - Init
+
     init (playlist: Playlist) {
         self.playlist = playlist
         super.init(nibName: nil, bundle: nil)
@@ -55,7 +59,6 @@ class PlaylistViewController: UIViewController {
         title = playlist.name
         view.addSubview(collectionView)
         
-        // Регистрация ячеейк
         collectionView.register(
             RecommendedTracksCollectionViewCell.self,
             forCellWithReuseIdentifier: RecommendedTracksCollectionViewCell.identifier
@@ -119,7 +122,6 @@ class PlaylistViewController: UIViewController {
             guard let strongSelf = self else { return }
             
             APICaller.shared.removeTrackFromPlaylist(track: tracksToDelete, playlist: strongSelf.playlist) { success in
-                // Операцию по удалению треков выполняем в главном потоке!
                 DispatchQueue.main.async {
                     if success {
                         strongSelf.tracks.remove(at: indexPath.row)
@@ -151,6 +153,8 @@ class PlaylistViewController: UIViewController {
         collectionView.frame = view.bounds
     }
 }
+
+// MARK: - Extension
 
 extension PlaylistViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int { 1 }
@@ -193,7 +197,6 @@ extension PlaylistViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        // Включить трек
         let index = indexPath.row
         let track = tracks[index]
         PlaybackPresenter.shared.startPlayback(from: self, track: track)
